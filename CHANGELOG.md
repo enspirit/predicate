@@ -1,4 +1,8 @@
-# 1.1.0 / TBD
+# 1.1.1 / 2018-03-03
+
+* Removed unnecessary & unused 'path' dependency.
+
+# 1.1.0 / 2018-03-03
 
 * Adds `Predicate.from_hash(x: 12, y: ['foo', 'bar'])`, also supported
   by `Predicate.coerce(...)`, with `x = 12 and y in ('foo','bar')`

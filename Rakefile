@@ -1,5 +1,3 @@
-require 'path'
-
 #
 # Install all tasks found in tasks folder
 #

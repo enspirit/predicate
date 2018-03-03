@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.add_runtime_dependency "sexpr", "~> 0.6.0"
-  s.add_runtime_dependency "path", "~> 2.0"
 
   s.add_development_dependency "rake", "~> 10"
   s.add_development_dependency "rspec", "~> 3.6"
