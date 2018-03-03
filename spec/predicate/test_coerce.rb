@@ -67,7 +67,15 @@ class Predicate
       let(:arg){ {status: 10, name: "Jones"} }
 
       specify{
-        subject.should eq(Predicate.eq(status: 10) & Predicate.eq(name: "Jones"))
+        expect(subject).to eq(Predicate.eq(status: 10) & Predicate.eq(name: "Jones"))
+      }
+    end
+
+    describe "from Hash (in)" do
+      let(:arg){ {status: [10, 15]} }
+
+      specify{
+        expect(subject).to eq(Predicate.in(:status, [10,15]))
       }
     end
 

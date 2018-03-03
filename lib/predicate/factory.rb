@@ -29,21 +29,6 @@ class Predicate
       _factor_predicate([:not, sexpr(operand)])
     end
 
-    def relation(r)
-      tuples = r.to_a
-      case tuples.size
-      when 0 then contradiction
-      when 1 then eq(tuples.first)
-      else
-        if tuples.first.size==1
-          k = tuples.first.keys.first
-          self.in(k, tuples.map{|t| t[k]})
-        else
-          tuples.inject(contradiction){|p,t| p | eq(t) }
-        end
-      end
-    end
-
     def in(identifier, values)
       identifier = sexpr(identifier) if identifier.is_a?(Symbol)
       _factor_predicate([:in, identifier, values])
@@ -51,17 +36,7 @@ class Predicate
     alias :among :in
 
     def comp(op, h)
-      h = h.to_hash
-      if h.empty?
-        return tautology
-      elsif h.size==1
-        _factor_predicate [op, sexpr(h.keys.first), sexpr(h.values.last)]
-      else
-        terms = h.to_a.inject([:and]) do |anded,pair|
-          anded << ([op] << sexpr(pair.first) << sexpr(pair.last))
-        end
-        _factor_predicate terms
-      end
+      from_hash(h, op)
     end
 
     [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
@@ -76,6 +51,22 @@ class Predicate
                                [:lte, sexpr(middle), sexpr(upper_bound)]]
     end
 
+    def from_hash(h, op = :eq)
+      if h.empty?
+        tautology
+      else
+        terms = h.to_a.map{|(k,v)|
+          if v.is_a?(Array)
+            [:in, sexpr(k), v]
+          else
+            [op, sexpr(k), sexpr(v)]
+          end
+        }
+        terms = terms.size == 1 ? terms.first : terms.unshift(:and)
+        _factor_predicate terms
+      end
+    end
+
     def literal(literal)
       _factor_predicate([:literal, literal])
     end
@@ -83,6 +74,8 @@ class Predicate
     def native(arg)
       _factor_predicate([:native, arg])
     end
+
+  protected
 
     def sexpr(expr)
       case expr

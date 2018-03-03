@@ -25,7 +25,7 @@ class Predicate
       when FalseClass  then contradiction
       when Symbol      then identifier(arg)
       when Proc        then native(arg)
-      when Hash        then eq(arg)
+      when Hash        then from_hash(arg)
       else
         raise ArgumentError, "Unable to coerce `#{arg}` to a predicate"
       end
