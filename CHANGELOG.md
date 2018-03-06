@@ -1,3 +1,8 @@
+# 1.1.2 / TBD
+
+* Fix error raised by Sequel when trying to compile a Native predicate.
+  Predicate::NotSupportedError must be raised, not NotImplementedError.
+
 # 1.1.1 / 2018-03-03
 
 * Removed unnecessary & unused 'path' dependency.

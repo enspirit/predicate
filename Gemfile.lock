@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    predicate (1.1.0)
+    predicate (1.1.2)
       sexpr (~> 0.6.0)
 
 GEM

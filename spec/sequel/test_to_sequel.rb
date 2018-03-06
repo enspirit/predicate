@@ -113,7 +113,7 @@ class Predicate
       let(:predicate) { Predicate.native(->(t){ false }) }
 
       it 'raises an error' do
-        expect { subject }.to raise_error(NotImplementedError)
+        expect { subject }.to raise_error(NotSupportedError)
       end
     end
 

@@ -62,7 +62,7 @@ class Predicate
     end
 
     def on_native(sexpr)
-      raise NotImplementedError
+      raise NotSupportedError
     end
 
   end # class ToSequel
