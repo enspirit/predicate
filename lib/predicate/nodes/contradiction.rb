@@ -26,9 +26,5 @@ class Predicate
       @free_variables ||= []
     end
 
-    def and_split(*args)
-      [tautology, self]
-    end
-
   end
 end

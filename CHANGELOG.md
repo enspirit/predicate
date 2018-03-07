@@ -1,4 +1,10 @@
-# 1.1.2 / TBD
+# 1.1.3 / 2018-03-07
+
+* Document `and_split` and review all actual implementations to make sure
+  of their correctness. Let Native implement the specification without
+  throwing a NotSupportedError.
+
+# 1.1.2 / 2018-03-06
 
 * Fix error raised by Sequel when trying to compile a Native predicate.
   Predicate::NotSupportedError must be raised, not NotImplementedError.

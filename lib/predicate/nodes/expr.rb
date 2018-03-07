@@ -36,6 +36,7 @@ class Predicate
     end
 
     def and_split(attr_list)
+      # If we have no reference to attr_list, then we are P2, else we are P1
       (free_variables & attr_list).empty? ? [ tautology, self ] : [ self, tautology ]
     end
 

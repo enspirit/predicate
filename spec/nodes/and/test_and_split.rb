@@ -62,5 +62,23 @@ class Predicate
       end
     end
 
+    context 'with a native on one side' do
+      let(:left) { Factory.eq(:x, 2)       }
+      let(:right){ Factory.native(->(t){}) }
+      let(:predicate){ left & right }
+
+      context 'when fully covered' do
+        let(:list){ [:x, :y, :z] }
+
+        it{ should eq([predicate, tautology]) }
+      end
+
+      context 'when not covered' do
+        let(:list){ [:y] }
+
+        it{ should eq([right, left]) }
+      end
+    end
+
   end
 end

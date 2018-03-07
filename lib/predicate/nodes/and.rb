@@ -7,9 +7,14 @@ class Predicate
     end
 
     def and_split(attr_list)
+      # Say we are X = X1 & X2 & X3
+      # We will split each term: X = (X1 & Y1) & (X2 & Y2) & (X3 & Y3)
+      # ... such that Y1, Y2, and Y2 makes no reference to attr_list
+      # ... which is equivalent to (X1 & X2 & X3) & (Y1 & Y2 & Y3)
+      # ... hence P1 & P2, that we return
       sexpr_body.inject([tautology, tautology]) do |(top,down),term|
-        pair = term.and_split(attr_list)
-        [top & pair.first, down & pair.last]
+        p1, p2 = term.and_split(attr_list)
+        [top & p1, down & p2]
       end
     end
 

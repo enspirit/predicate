@@ -10,6 +10,12 @@ class Predicate
       self[1]
     end
 
+    def and_split(attr_list)
+      # I possibly make references to those attributes, so
+      # I can't be P2
+      [ self, tautology ]
+    end
+
     def to_ruby_code(scope = 't')
       if proc.respond_to?(:source_code)
         code = proc.source_code
