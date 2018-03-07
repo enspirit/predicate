@@ -1,3 +1,9 @@
+# 1.2 / TBD
+
+* Add `Predicate#attr_split` that helps splitting a predicate as a
+  conjunction os sub predicates making references to a single attribute
+  only.
+
 # 1.1.3 / 2018-03-07
 
 * Document `and_split` and review all actual implementations to make sure

@@ -40,6 +40,18 @@ class Predicate
       (free_variables & attr_list).empty? ? [ tautology, self ] : [ self, tautology ]
     end
 
+    def attr_split
+      # if I have only one variable reference, then I can return
+      # myself mapped to that variable...
+      if (vars = free_variables).size == 1
+        { vars.first => self }
+      else
+        # I must still map myself to nil to meet the conjunction
+        # specification
+        { nil => self }
+      end
+    end
+
     def rename(renaming)
       Renamer.call(self, :renaming => renaming)
     end

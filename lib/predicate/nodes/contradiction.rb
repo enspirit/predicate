@@ -26,5 +26,9 @@ class Predicate
       @free_variables ||= []
     end
 
+    def attr_split
+      { nil => self }
+    end
+
   end
 end

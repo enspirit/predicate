@@ -95,6 +95,20 @@ class Predicate
     expr.and_split(attr_list).map{|e| Predicate.new(e)}
   end
 
+  # Returns a hash `(attr -> Pattr)` associating attribute names
+  # to predicates, so that each predicate `Pattr` only makes
+  # reference to the corresponding attribute name `attr`, while
+  # the conjunction of `Pattr`s is still equivalent to the
+  # original predicate.
+  #
+  # A `nil` key may map a predicate that still makes references
+  # to more than one attribute.
+  def attr_split
+    expr.attr_split.each_pair.each_with_object({}) do |(k,v),h|
+      h[k] = Predicate.new(v)
+    end
+  end
+
   def ==(other)
     other.is_a?(Predicate) && (other.expr==expr)
   end

@@ -26,5 +26,9 @@ class Predicate
       @free_variables ||= []
     end
 
+    def attr_split
+      {}
+    end
+
   end
 end

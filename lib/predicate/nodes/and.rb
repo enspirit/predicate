@@ -18,6 +18,16 @@ class Predicate
       end
     end
 
+    def attr_split
+      # Similar to and_split above, but the reasonning applies on
+      # attribute names this time.
+      sexpr_body.each_with_object({}) do |term, h|
+        term.attr_split.each_pair do |a,p|
+          h[a] = (h[a] || tautology) & p
+        end
+      end
+    end
+
     def constant_variables
       sexpr_body.inject([]) do |cvars,expr|
         cvars | expr.constant_variables
