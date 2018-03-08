@@ -45,6 +45,14 @@ class Predicate
       end
     end
 
+    context 'qualified eq(name: "bob")' do
+      let(:predicate) { Predicate.eq(:name, "Bob").qualify(:t) }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE (`t`.`name` = 'Bob')")
+      end
+    end
+
     context 'eq(name: :address)' do
       let(:predicate) { Predicate.eq(:name, :address) }
 

@@ -6,7 +6,7 @@ class Predicate
     end
 
     def on_qualified_identifier(sexpr)
-      ::Sequel.as(sexpr.qualifier, sexpr.name)
+      ::Sequel.identifier(sexpr.name).qualify(sexpr.qualifier)
     end
 
     def on_literal(sexpr)
