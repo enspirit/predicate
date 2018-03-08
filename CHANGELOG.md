@@ -4,6 +4,9 @@
   conjunction os sub predicates making references to a single attribute
   only.
 
+* `Predicate.qualify` now accepts a global qualifier as a Symbol in
+  addition to a Hash mapping each variable to a given qualifier.
+
 * [Sequel] Fix a bug in SQL generation when qualified identifiers are
   used. `WHERE table AS field = ...` was generated instead of the
   correct `WHERE table.field = ...`

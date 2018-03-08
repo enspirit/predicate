@@ -9,8 +9,13 @@ class Predicate
     attr_reader :qualifier
 
     def on_identifier(sexpr)
-      return sexpr unless q = qualifier[sexpr.name]
-      [:qualified_identifier, q, sexpr.name]
+      case qualifier
+      when Symbol
+        [:qualified_identifier, qualifier, sexpr.name]
+      else
+        return sexpr unless q = qualifier[sexpr.name]
+        [:qualified_identifier, q, sexpr.name]
+      end
     end
 
     def on_native(sexpr)
