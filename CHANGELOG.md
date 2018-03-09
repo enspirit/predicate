@@ -1,4 +1,4 @@
-# 1.2 / TBD
+# 1.2 / 2018-03-09
 
 * Add `Predicate#intersect` that has same limitations than `#in`
   (only `identifier OP values` is supported) but an array/set
