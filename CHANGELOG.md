@@ -11,6 +11,10 @@
   used. `WHERE table AS field = ...` was generated instead of the
   correct `WHERE table.field = ...`
 
+* [Sequel] Add support for `Predicate.in(:x, operand)` where operand
+  is a Sequel compatible literal, that is, an object responding to
+  `:sql_literal`.
+
 # 1.1.3 / 2018-03-07
 
 * Document `and_split` and review all actual implementations to make sure

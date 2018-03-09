@@ -85,6 +85,21 @@ class Predicate
       end
     end
 
+    context 'in with something responding to sql_literal' do
+      let(:operand){
+        Object.new.tap{|o|
+          def o.sql_literal(db)
+            "Hello World"
+          end
+        }
+      }
+      let(:predicate) { Predicate.in(:price, operand) }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE (`price` IN (Hello World))")
+      end
+    end
+
     context 'not' do
       let(:predicate) { !Predicate.in(:price, [10.0, 17.99]) }
 

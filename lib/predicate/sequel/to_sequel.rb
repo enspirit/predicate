@@ -44,6 +44,7 @@ class Predicate
 
     def on_in(sexpr)
       left, right = apply(sexpr.identifier), sexpr.last
+      right = [right] if !right.is_a?(Array) && right.respond_to?(:sql_literal)
       ::Sequel.expr(left => right)
     end
 
