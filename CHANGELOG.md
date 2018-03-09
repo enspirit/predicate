@@ -1,10 +1,16 @@
 # 1.2 / TBD
 
+* Add `Predicate#intersect` that has same limitations than `#in`
+  (only `identifier OP values` is supported) but an array/set
+  intersection semantics.
+  The generated ruby code relies on ruby's `&` semantics.
+  The operator is not supported in Sequel compilation.
+
 * Add `Predicate#attr_split` that helps splitting a predicate as a
   conjunction os sub predicates making references to a single attribute
   only.
 
-* `Predicate.qualify` now accepts a global qualifier as a Symbol in
+* `Predicate#qualify` now accepts a global qualifier as a Symbol in
   addition to a Hash mapping each variable to a given qualifier.
 
 * [Sequel] Fix a bug in SQL generation when qualified identifiers are

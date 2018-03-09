@@ -73,5 +73,11 @@ class Predicate
       specify{ subject.expr.should be_a(Native) }
     end
 
+    context 'intersect' do
+      subject{ Predicate.intersect(:x, [7,8]) }
+
+      specify{ subject.to_ruby_code.should eq("->(t){ !(t[:x] & [7, 8]).empty? }") }
+    end
+
   end
 end

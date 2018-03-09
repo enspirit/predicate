@@ -62,9 +62,11 @@ class Predicate
       body[1..-1].inject(apply(body.first)){|f,t| f | apply(t) }
     end
 
-    def on_native(sexpr)
+    def on_unsupported(sexpr)
       raise NotSupportedError
     end
+    alias :on_native :on_unsupported
+    alias :on_intersect :on_unsupported
 
   end # class ToSequel
 end # class Predicate

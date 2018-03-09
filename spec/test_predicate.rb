@@ -2,11 +2,12 @@ require 'spec_helper'
 
 shared_examples_for "a predicate" do
 
+  let(:w){ [8, 9] }
   let(:x){ 12 }
   let(:y){ 13 }
 
   it 'provides a proc for easy evaluation' do
-    got = subject.to_proc.call(x: 12, y: 13)
+    got = subject.to_proc.call(w: w, x: x, y: y)
     [ TrueClass, FalseClass ].should include(got.class)
   end
 
@@ -24,7 +25,7 @@ shared_examples_for "a predicate" do
 
   it 'has free variables' do
     (fv = subject.free_variables).should be_a(Array)
-    (fv - [ :x, :y ]).should be_empty
+    (fv - [ :w, :x, :y ]).should be_empty
   end
 
   it 'always splits around and trivially when no free variables are touched' do
@@ -61,6 +62,12 @@ end
 
 describe "Predicate.among" do
   subject{ Predicate.among(:x, [2, 3]) }
+
+  it_should_behave_like "a predicate"
+end
+
+describe "Predicate.intersect" do
+  subject{ Predicate.intersect(:w, [2, 3]) }
 
   it_should_behave_like "a predicate"
 end

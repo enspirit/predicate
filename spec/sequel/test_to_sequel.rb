@@ -132,6 +132,14 @@ class Predicate
       end
     end
 
+    context 'intersect' do
+      let(:predicate) { Predicate.intersect(:x, [8, 9]) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(NotSupportedError)
+      end
+    end
+
     context 'native' do
       let(:predicate) { Predicate.native(->(t){ false }) }
 

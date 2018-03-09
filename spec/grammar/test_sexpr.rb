@@ -7,8 +7,13 @@ class Predicate
     let(:contradiction){
       [:contradiction, false]
     }
+
     let(:identifier){
       [:identifier, :name]
+    }
+
+    let(:values){
+      [12, 15]
     }
 
     before do
@@ -85,6 +90,18 @@ class Predicate
       let(:expr){ [:lte, identifier, identifier] }
 
       it{ should be_a(Lte) }
+    end
+
+    describe "in" do
+      let(:expr){ [:in, identifier, values] }
+
+      it{ should be_a(In) }
+    end
+
+    describe "intersect" do
+      let(:expr){ [:intersect, identifier, values] }
+
+      it{ should be_a(Intersect) }
     end
 
     describe "literal" do

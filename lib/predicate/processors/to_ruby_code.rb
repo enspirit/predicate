@@ -49,6 +49,10 @@ class Predicate
       "#{to_ruby_literal(sexpr.values)}.include?(#{apply(sexpr.identifier)})"
     end
 
+    def on_intersect(sexpr)
+      "!(#{apply(sexpr.identifier)} & #{to_ruby_literal(sexpr.values)}).empty?"
+    end
+
     def on_literal(sexpr)
       to_ruby_literal(sexpr.last)
     end

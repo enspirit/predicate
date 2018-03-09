@@ -35,6 +35,11 @@ class Predicate
     end
     alias :among :in
 
+    def intersect(identifier, values)
+      identifier = sexpr(identifier) if identifier.is_a?(Symbol)
+      _factor_predicate([:intersect, identifier, values])
+    end
+
     def comp(op, h)
       from_hash(h, op)
     end

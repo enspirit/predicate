@@ -13,6 +13,7 @@ rules:
     - gt
     - gte
     - in
+    - intersect
     - native
   tautology:
     - [ true ]
@@ -41,6 +42,8 @@ rules:
   gte:
     - [ term, term ]
   in:
+    - [ varref, values ]
+  intersect:
     - [ varref, values ]
   term:
     - varref
