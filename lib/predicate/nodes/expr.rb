@@ -19,13 +19,26 @@ class Predicate
       false
     end
 
+    def literal?
+      sexpr_type == :literal
+    end
+
+    def identifier?
+      sexpr_type == :identifier
+    end
+
     def !
       sexpr([:not, self])
+    end
+
+    def dyadic_priority
+      0
     end
 
     def &(other)
       return other if other.contradiction?
       return self  if other.tautology?
+      return other & self if other.dyadic_priority > self.dyadic_priority
       sexpr([:and, self, other])
     end
 

@@ -6,6 +6,15 @@ class Predicate
       :'&&'
     end
 
+    def &(other)
+      case other
+      when Tautology     then self
+      when Contradiction then other
+      when And           then sexpr(dup + other[1..-1])
+      else               dup << other
+      end
+    end
+
     def and_split(attr_list)
       # Say we are X = X1 & X2 & X3
       # We will split each term: X = (X1 & Y1) & (X2 & Y2) & (X3 & Y3)

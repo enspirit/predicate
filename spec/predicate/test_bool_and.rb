@@ -30,5 +30,21 @@ class Predicate
       end
     end
 
+    context 'with tautology' do
+      let(:right){ Predicate.tautology }
+
+      it 'returns self' do
+        expect(subject).to eql(left)
+      end
+    end
+
+    context 'with contradiction' do
+      let(:right){ Predicate.contradiction }
+
+      it 'returns contradiction' do
+        expect(subject).to eql(right)
+      end
+    end
+
   end
 end

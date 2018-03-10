@@ -18,6 +18,10 @@ class Predicate
       self
     end
 
+    def dyadic_priority
+      1000
+    end
+
     def priority
       100
     end

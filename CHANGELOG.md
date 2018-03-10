@@ -1,3 +1,8 @@
+# 1.3 / TBD
+
+* Add various & optimizations, typically those yielding tautologies
+  and contradictions.
+
 # 1.2 / 2018-03-09
 
 * Add `Predicate#intersect` that has same limitations than `#in`
