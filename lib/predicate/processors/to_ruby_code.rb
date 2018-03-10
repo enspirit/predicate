@@ -50,7 +50,8 @@ class Predicate
     end
 
     def on_intersect(sexpr)
-      "!(#{apply(sexpr.identifier)} & #{to_ruby_literal(sexpr.values)}).empty?"
+      t_x = apply(sexpr.identifier)
+      "!#{t_x}.nil? && !(#{t_x} & #{to_ruby_literal(sexpr.values)}).empty?"
     end
 
     def on_literal(sexpr)

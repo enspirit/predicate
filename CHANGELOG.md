@@ -7,6 +7,10 @@
   to the known constant, if any. E.g. if `#constants` returns
   `{x: 2}`, it means the predicate is of the form `x = 2 AND ...`.
 
+* Fix ruby code generation of `#intersect` to be robust when the
+  tested attribute is nil in the tuple. Intersects returns false in
+  such a case.
+
 # 1.2 / 2018-03-09
 
 * Add `Predicate#intersect` that has same limitations than `#in`
