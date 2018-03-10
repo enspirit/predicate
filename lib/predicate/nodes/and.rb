@@ -43,5 +43,11 @@ class Predicate
       end
     end
 
+    def constants
+      sexpr_body.each_with_object({}) do |op, cs|
+        cs.merge!(op.constants){|k,v1,v2| v1 }
+      end
+    end
+
   end
 end

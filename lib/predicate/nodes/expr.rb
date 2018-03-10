@@ -77,6 +77,10 @@ class Predicate
       []
     end
 
+    def constants
+      {}
+    end
+
     def to_ruby_code(scope = 't')
       code = ToRubyCode.call(self, scope: scope)
       "->(t){ #{code} }"

@@ -3,6 +3,10 @@
 * Add various & optimizations, typically those yielding tautologies
   and contradictions.
 
+* Add `Predicate#constants` that returns a Hash mapping identifiers
+  to the known constant, if any. E.g. if `#constants` returns
+  `{x: 2}`, it means the predicate is of the form `x = 2 AND ...`.
+
 # 1.2 / 2018-03-09
 
 * Add `Predicate#intersect` that has same limitations than `#in`

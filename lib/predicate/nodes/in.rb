@@ -43,6 +43,10 @@ class Predicate
       values.size == 1 ? free_variables : []
     end
 
+    def constants
+      values.size == 1 ? { identifier.name => values.first } : {}
+    end
+
     def dyadic_priority
       800
     end

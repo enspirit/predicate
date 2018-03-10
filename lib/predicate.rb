@@ -60,6 +60,10 @@ class Predicate
     expr.constant_variables
   end
 
+  def constants
+    expr.constants
+  end
+
   def &(other)
     return self  if other.tautology? or other==self
     return other if tautology?
