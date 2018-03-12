@@ -11,6 +11,9 @@
   tested attribute is nil in the tuple. Intersects returns false in
   such a case.
 
+* Changed `Predicate#evaluate` to avoid relying on an unsafe ruby
+  code generation.
+
 # 1.2 / 2018-03-09
 
 * Add `Predicate#intersect` that has same limitations than `#in`

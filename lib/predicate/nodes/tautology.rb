@@ -34,5 +34,9 @@ class Predicate
       {}
     end
 
+    def evaluate(tuple)
+      true
+    end
+
   end
 end

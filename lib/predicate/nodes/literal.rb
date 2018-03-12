@@ -14,5 +14,9 @@ class Predicate
       last
     end
 
+    def evaluate(tuple)
+      value
+    end
+
   end
 end

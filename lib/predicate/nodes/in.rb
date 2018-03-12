@@ -51,5 +51,9 @@ class Predicate
       800
     end
 
+    def evaluate(tuple)
+      values.include?(left.evaluate(tuple))
+    end
+
   end
 end

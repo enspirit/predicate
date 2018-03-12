@@ -89,7 +89,7 @@ class Predicate
   end
 
   def evaluate(tuple)
-    to_proc.call(tuple)
+    expr.evaluate(tuple)
   end
 
   # Splits this predicate, say P, as too predicates P1 & P2

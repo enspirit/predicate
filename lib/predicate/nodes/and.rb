@@ -49,5 +49,9 @@ class Predicate
       end
     end
 
+    def evaluate(tuple)
+      sexpr_body.all?{|operand| operand.evaluate(tuple) }
+    end
+
   end
 end

@@ -18,5 +18,9 @@ class Predicate
       @free_variables ||= last.free_variables
     end
 
+    def evaluate(tuple)
+      !last.evaluate(tuple)
+    end
+
   end
 end

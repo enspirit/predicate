@@ -36,6 +36,10 @@ class Predicate
       proc
     end
 
+    def evaluate(tuple)
+      proc.call(tuple)
+    end
+
     def free_variables
       raise NotSupportedError
     end

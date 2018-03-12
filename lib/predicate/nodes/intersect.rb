@@ -22,5 +22,10 @@ class Predicate
       values.size == 1 ? free_variables : []
     end
 
+    def evaluate(tuple)
+      t_x = left.evaluate(tuple)
+      t_x && !(tx & right.evaluate(tuple)).empty?
+    end
+
   end
 end

@@ -34,5 +34,9 @@ class Predicate
       { nil => self }
     end
 
+    def evaluate(tuple)
+      false
+    end
+
   end
 end
