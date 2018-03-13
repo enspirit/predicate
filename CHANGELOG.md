@@ -1,4 +1,4 @@
-# 1.3 / TBD
+# 1.3 / 2018-03-13
 
 * Add various & optimizations, typically those yielding tautologies
   and contradictions.
