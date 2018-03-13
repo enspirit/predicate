@@ -23,8 +23,8 @@ class Predicate
     end
 
     def evaluate(tuple)
-      t_x = left.evaluate(tuple)
-      t_x && !(tx & right.evaluate(tuple)).empty?
+      t_x = identifier.evaluate(tuple)
+      t_x && !(t_x & values).empty?
     end
 
   end

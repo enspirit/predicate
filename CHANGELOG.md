@@ -1,3 +1,7 @@
+# 1.3.1 / 2018-03-13
+
+* Fix `#evaluate` on `Predicate.intersect`.
+
 # 1.3 / 2018-03-13
 
 * Add various & optimizations, typically those yielding tautologies
