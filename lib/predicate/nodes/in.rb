@@ -52,7 +52,7 @@ class Predicate
     end
 
     def evaluate(tuple)
-      values.include?(left.evaluate(tuple))
+      values.include?(identifier.evaluate(tuple))
     end
 
   end

@@ -1,3 +1,7 @@
+# 1.3.2 / 2018-03-14
+
+* Fix `#evaluate` on `Predicate.in`.
+
 # 1.3.1 / 2018-03-13
 
 * Fix `#evaluate` on `Predicate.intersect`.

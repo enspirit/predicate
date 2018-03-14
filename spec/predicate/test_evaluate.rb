@@ -62,6 +62,24 @@ class Predicate
       end
     end
 
+    context 'on an in predicate' do
+      let(:predicate){
+        Predicate.in(:x, [8,9])
+      }
+
+      describe "on x == 2" do
+        let(:scope){ { :x => [2] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == 8" do
+        let(:scope){ { :x => 8 } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+    end
+
     context 'on an intersect predicate' do
       let(:predicate){
         Predicate.intersect(:x, [8,9])
