@@ -125,7 +125,10 @@ class Predicate
   def to_ruby_code(scope = "t")
     expr.to_ruby_code(scope)
   end
-  alias :to_s :to_ruby_code
+
+  def to_s(scope = nil)
+    expr.to_s(scope)
+  end
 
   def to_proc
     @proc ||= expr.to_proc("t")

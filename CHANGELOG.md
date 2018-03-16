@@ -1,3 +1,8 @@
+# 1.3.3 / TBD
+
+* Add `Predicate#to_s` and `#inspect` with a more readable predicate
+  representation.
+
 # 1.3.2 / 2018-03-14
 
 * Fix `#evaluate` on `Predicate.in`.

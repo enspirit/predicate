@@ -86,6 +86,11 @@ class Predicate
       "->(t){ #{code} }"
     end
 
+    def to_s(scope = nil)
+      ToS.call(self, scope: scope)
+    end
+    alias :inspect :to_s
+
     def to_proc(scope = 't')
       Kernel.eval(to_ruby_code(scope))
     end
