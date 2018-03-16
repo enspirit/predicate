@@ -1,4 +1,4 @@
-# 1.3.3 / TBD
+# 1.3.3 / 2018-03-16
 
 * Add `Predicate#to_s` and `#inspect` with a more readable predicate
   representation.
