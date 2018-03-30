@@ -58,6 +58,10 @@ describe "Predicate.in" do
   subject{ Predicate.in(:x, [2, 3]) }
 
   it_should_behave_like "a predicate"
+
+  it 'should lead to a contradiction if value list is empty' do
+    expect(Predicate.in(:x, [])).to eql(Predicate.contradiction)
+  end
 end
 
 describe "Predicate.among" do

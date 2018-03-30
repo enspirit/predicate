@@ -30,6 +30,7 @@ class Predicate
     end
 
     def in(identifier, values)
+      return contradiction if values.is_a?(Array) && values.empty?
       identifier = sexpr(identifier) if identifier.is_a?(Symbol)
       _factor_predicate([:in, identifier, values])
     end

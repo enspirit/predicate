@@ -1,3 +1,8 @@
+# 1.3.4 / 2018-03-30
+
+* `Predicate.in` now returns a contradiction when the set of values
+  is known to be empty.
+
 # 1.3.3 / 2018-03-16
 
 * Add `Predicate#to_s` and `#inspect` with a more readable predicate
