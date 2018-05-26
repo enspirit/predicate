@@ -78,6 +78,18 @@ class Predicate
       end
     end
 
+    context "match" do
+      subject{ Grammar[:match] }
+
+      it 'matches valid ASTs' do
+        subject.should be_match([:match, [:identifier, :name], [:literal, "London"], {}])
+        subject.should be_match([:match, [:identifier, :name], [:literal, /London/], {}])
+      end
+      it 'does not match invalid ASTs' do
+        subject.should_not be_match([:native, 12])
+      end
+    end
+
     context "native" do
       subject{ Grammar[:native] }
 

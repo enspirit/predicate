@@ -53,5 +53,23 @@ class Predicate
       it{ should eq([ p.tautology, pred ]) }
     end
 
+    context "on match (included)" do
+      let(:pred){ p.match(:x, "London") }
+
+      it{ should eq([ pred, p.tautology ]) }
+    end
+
+    context "on match (excluded)" do
+      let(:pred){ p.match(:y, "London") }
+
+      it{ should eq([ p.tautology, pred ]) }
+    end
+
+    context "on match (included on right)" do
+      let(:pred){ p.match(:y, :x) }
+
+      it{ should eq([ pred, p.tautology ]) }
+    end
+
   end
 end

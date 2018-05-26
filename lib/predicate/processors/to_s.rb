@@ -61,6 +61,10 @@ class Predicate
       to_literal(sexpr.last)
     end
 
+    def on_match(sexpr)
+      "#{apply(sexpr.left)} =~ #{apply(sexpr.right)}"
+    end
+
     def on_native(sexpr)
       sexpr.last.inspect
     end

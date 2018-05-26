@@ -1,5 +1,8 @@
 # 2.0
 
+* Add `Predicate#match` to match attributes against strings and
+  regular expressions.
+
 * BREAKING CHANGE: Predicate#to_ruby_code and Predicate#to_proc have
   been removed. Mostly because they are difficult to maintain, but
   also because they tend to be dangerous to use from a security point

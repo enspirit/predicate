@@ -101,6 +101,12 @@ class Predicate
       it{ should eq({}) }
     end
 
+    context "on match" do
+      let(:pred){ p.match(:x, "London") }
+
+      it{ should eq({}) }
+    end
+
     context "on native" do
       let(:pred){ p.native(->(t){}) }
 

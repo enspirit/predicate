@@ -62,6 +62,18 @@ class Predicate
       body[1..-1].inject(apply(body.first)){|f,t| f | apply(t) }
     end
 
+    def on_match(sexpr)
+      left, right = sexpr.left, sexpr.right
+      left  = [ left.first,  "%#{left.last}%"  ] if left.first  == :literal && !left.last.is_a?(Regexp)
+      right = [ right.first, "%#{right.last}%" ] if right.first == :literal && !right.last.is_a?(Regexp)
+      left, right = apply(left), apply(right)
+      if sexpr.case_sentitive?
+        left.like(right)
+      else
+        left.ilike(right)
+      end
+    end
+
     def on_unsupported(sexpr)
       raise NotSupportedError
     end

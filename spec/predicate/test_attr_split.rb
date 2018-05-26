@@ -35,5 +35,17 @@ class Predicate
       it{ should eq({ x: pred }) }
     end
 
+    context "on match" do
+      let(:pred){ p.match(:x, "London") }
+
+      it{ should eq({ x: pred }) }
+    end
+
+    context "on match with two identifiers" do
+      let(:pred){ p.match(:x, :y) }
+
+      it{ should eq({ nil => pred }) }
+    end
+
   end
 end

@@ -77,6 +77,10 @@ class Predicate
       _factor_predicate([:literal, literal])
     end
 
+    def match(left, right, options = nil)
+      _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
+    end
+
     def native(arg)
       _factor_predicate([:native, arg])
     end

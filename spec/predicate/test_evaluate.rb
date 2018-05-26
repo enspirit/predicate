@@ -98,5 +98,123 @@ class Predicate
       end
     end
 
+    context 'on a match against a string' do
+      let(:predicate){
+        Predicate.match(:x, "12")
+      }
+
+      it "matches when expected" do
+        [
+          { x: 12 },
+          { x: "12" },
+          { x: "Once upon a time, in 12" },
+          { x: "Once upon a time, in 12!" },
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_truthy
+        end
+      end
+
+      it "does not match when not expected" do
+        [
+          { x: 17 },
+          { x: nil },
+          { x: "Londan" },
+          { x: "london" },
+          { x: "Once upon a time, in Londan" },
+          { x: "Once upon a time, in Londan!" },
+          { },
+          { y: "London" }
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_falsy
+        end
+      end
+    end
+
+    context 'on a match against a string, case insensitive' do
+      let(:predicate){
+        Predicate.match(:x, "London", case_sensitive: false)
+      }
+
+      it "matches when expected" do
+        [
+          { x: "London" },
+          { x: "london" },
+          { x: "Once upon a time, in London" },
+          { x: "Once upon a time, in London!" },
+          { x: "Once upon a time, in london!" },
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_truthy
+        end
+      end
+
+      it "does not match when not expected" do
+        [
+          { x: "Londan" },
+          { x: "Once upon a time, in Londan" },
+          { x: "Once upon a time, in Londan!" },
+          { },
+          { y: "London" }
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_falsy
+        end
+      end
+    end
+
+    context 'on a match against a regexp' do
+      let(:predicate){
+        Predicate.match(:x, /London/i)
+      }
+
+      it "matches when expected" do
+        [
+          { x: "London" },
+          { x: "london" },
+          { x: "Once upon a time, in London" },
+          { x: "Once upon a time, in London!" },
+          { x: "Once upon a time, in london!" },
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_truthy
+        end
+      end
+
+      it "does not match when not expected" do
+        [
+          { x: 17 },
+          { x: "Londan" },
+          { x: "Once upon a time, in Londan" },
+          { x: "Once upon a time, in Londan!" },
+          { },
+          { y: "London" }
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_falsy
+        end
+      end
+    end
+
+    context 'on a match against a another attribute' do
+      let(:predicate){
+        Predicate.match(:x, :y)
+      }
+
+      it "matches when expected" do
+        [
+          { x: "London", y: "London" },
+          { x: "Once upon a time in London", y: "London" },
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_truthy
+        end
+      end
+
+      it "does not match when not expected" do
+        [
+          { x: 17 },
+          { x: "Londan", y: "London" },
+          { x: "London", y: "Once upon a time in London" },
+        ].each do |tuple|
+          expect(predicate.evaluate(tuple)).to be_falsy
+        end
+      end
+    end
+
   end
 end

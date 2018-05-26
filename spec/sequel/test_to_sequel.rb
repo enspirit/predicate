@@ -140,6 +140,39 @@ class Predicate
       end
     end
 
+    context 'match' do
+      let(:predicate) { Predicate.match(left, right, options) }
+      let(:options){ nil }
+
+      context '(attr, String)' do
+        let(:left){ :x }
+        let(:right){ "London" }
+
+        it 'works as expected' do
+          expect(subject).to eql("SELECT * FROM `items` WHERE (`x` LIKE '%London%' ESCAPE '\\')")
+        end
+      end
+
+      context '(attr, String, case_sensitive: false)' do
+        let(:left){ :x }
+        let(:right){ "London" }
+        let(:options){ { case_sensitive: false } }
+
+        it 'works as expected' do
+          expect(subject).to eql("SELECT * FROM `items` WHERE (UPPER(`x`) LIKE UPPER('%London%') ESCAPE '\\')")
+        end
+      end
+
+      context '(attr, Regexp)' do
+        let(:left){ :x }
+        let(:right){ /London/i }
+
+        pending 'works as expected' do
+          expect(subject).to eql("SELECT * FROM `items` WHERE (`x` LIKE '%London%' ESCAPE '\\')")
+        end
+      end
+    end
+
     context 'native' do
       let(:predicate) { Predicate.native(->(t){ false }) }
 
