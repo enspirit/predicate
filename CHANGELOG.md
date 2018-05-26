@@ -1,3 +1,10 @@
+# 2.0
+
+* BREAKING CHANGE: Predicate#to_ruby_code and Predicate#to_proc have
+  been removed. Mostly because they are difficult to maintain, but
+  also because they tend to be dangerous to use from a security point
+  of view (allowing end user code injection).
+
 # 1.3.4 / 2018-03-30
 
 * `Predicate.in` now returns a contradiction when the set of values

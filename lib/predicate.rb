@@ -122,16 +122,8 @@ class Predicate
     expr.hash
   end
 
-  def to_ruby_code(scope = "t")
-    expr.to_ruby_code(scope)
-  end
-
   def to_s(scope = nil)
     expr.to_s(scope)
-  end
-
-  def to_proc
-    @proc ||= expr.to_proc("t")
   end
 
 end # class Predicate

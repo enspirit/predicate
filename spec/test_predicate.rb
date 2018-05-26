@@ -6,11 +6,6 @@ shared_examples_for "a predicate" do
   let(:x){ 12 }
   let(:y){ 13 }
 
-  it 'provides a proc for easy evaluation' do
-    got = subject.to_proc.call(w: w, x: x, y: y)
-    [ TrueClass, FalseClass ].should include(got.class)
-  end
-
   it 'can be negated easily' do
     (!subject).should be_a(Predicate)
   end

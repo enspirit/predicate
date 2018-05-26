@@ -40,7 +40,6 @@ class Predicate
 
       specify{
         subject.expr.should be_a(Native)
-        subject.to_proc.should be(arg)
       }
     end
 

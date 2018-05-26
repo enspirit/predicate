@@ -17,10 +17,6 @@ class Predicate
         expect(subject).to be_a(And)
         expect(subject.size).to eql(4)
       end
-
-      it 'is as expected' do
-        expect(subject.to_ruby_code).to eql("->(t){ (t[:x] == 2) && (t[:y] == 3) && (t[:z] == 4) }")
-      end
     end
 
     context 'with another and' do
@@ -31,10 +27,6 @@ class Predicate
       it 'collects it' do
         expect(subject).to be_a(And)
         expect(subject.size).to eql(5)
-      end
-
-      it 'is as expected' do
-        expect(subject.to_ruby_code).to eql("->(t){ (t[:x] == 2) && (t[:y] == 3) && (t[:w] == 5) && (t[:z] == 4) }")
       end
     end
 
