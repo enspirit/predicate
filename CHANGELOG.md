@@ -1,4 +1,4 @@
-# 2.0
+# 2.0 - 2018-05-28
 
 * Add `Predicate#match` to match attributes against strings and
   regular expressions.
