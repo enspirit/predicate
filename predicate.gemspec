@@ -1,10 +1,11 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require 'predicate/version'
+require 'date'
 
 Gem::Specification.new do |s|
   s.name        = 'predicate'
   s.version     = Predicate::VERSION
-  s.date        = '2016-07-19'
+  s.date        = Date.today.to_s
   s.summary     = "Predicate provides a simple class and processors to encode and manipulate (tuple) predicates"
   s.description = "Predicate provides a simple class and processors to encode and manipulate (tuple) predicates"
   s.authors     = ["Bernard Lambeau"]
