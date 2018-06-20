@@ -7,20 +7,17 @@ class Predicate
     end
 
     def &(other)
+      return super unless free_variables == other.free_variables
       case other
       when Eq
-        if free_variables == other.free_variables
-          return self if constants == other.constants
-          contradiction
-        else
-          super
-        end
+        return self if constants == other.constants
+        return contradiction
       when In
-        return self if free_variables == other.free_variables
-        super
-      else
-        super
+        return self if other.right.literal?
       end
+      super
+    rescue NotSupportedError
+      super
     end
 
     def constant_variables

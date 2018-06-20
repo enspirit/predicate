@@ -43,14 +43,15 @@ rules:
   gte:
     - [ term, term ]
   in:
-    - [ varref, values ]
+    - [ varref, term ]
   intersect:
-    - [ varref, values ]
+    - [ term, term ]
   match:
     - [ term, term, options ]
   term:
     - varref
     - literal
+    - opaque
   varref:
     - qualified_identifier
     - identifier
@@ -58,7 +59,7 @@ rules:
     - [ "::Proc" ]
   literal:
     - "::Object"
-  values:
+  opaque:
     - "::Object"
   options:
     - "::Hash"

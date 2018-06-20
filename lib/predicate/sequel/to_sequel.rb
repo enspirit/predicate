@@ -1,5 +1,8 @@
 class Predicate
   class ToSequel < Sexpr::Processor
+
+    class Error < StandardError; end
+
     module Methods
       def on_identifier(sexpr)
         ::Sequel.identifier(sexpr.last)
@@ -43,9 +46,14 @@ class Predicate
       alias :on_gte :on_dyadic_comp
 
       def on_in(sexpr)
-        left, right = apply(sexpr.identifier), sexpr.last
-        right = [right] if !right.is_a?(Array) && right.respond_to?(:sql_literal)
-        ::Sequel.expr(left => right)
+        left, right = apply(sexpr.identifier), sexpr.right
+        if right.literal?
+          ::Sequel.expr(left => right.value)
+        elsif right.opaque?
+          ::Sequel.expr(left => apply(right))
+        else
+          raise Error, "Unable to compile `#{right}` to sequel"
+        end
       end
 
       def on_not(sexpr)
@@ -72,6 +80,11 @@ class Predicate
         else
           left.ilike(right)
         end
+      end
+
+      def on_opaque(sexpr)
+        return [sexpr.last] if sexpr.last.respond_to?(:sql_literal)
+        raise Error, "Unable to compile #{sexpr} to Sequel"
       end
 
       def on_unsupported(sexpr)

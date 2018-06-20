@@ -29,10 +29,13 @@ class Predicate
       _factor_predicate([:not, sexpr(operand)])
     end
 
-    def in(identifier, values)
-      return contradiction if values.is_a?(Array) && values.empty?
-      identifier = sexpr(identifier) if identifier.is_a?(Symbol)
-      _factor_predicate([:in, identifier, values])
+    def in(left, right)
+      left, right = sexpr(left), sexpr(right)
+      if right.literal? && right.value.empty?
+        contradiction
+      else
+        _factor_predicate([:in, left, right])
+      end
     end
     alias :among :in
 
@@ -63,7 +66,7 @@ class Predicate
       else
         terms = h.to_a.map{|(k,v)|
           if v.is_a?(Array)
-            [:in, sexpr(k), v]
+            [:in, sexpr(k), sexpr(v)]
           else
             [op, sexpr(k), sexpr(v)]
           end
@@ -75,6 +78,10 @@ class Predicate
 
     def literal(literal)
       _factor_predicate([:literal, literal])
+    end
+
+    def opaque(arg)
+      _factor_predicate([:opaque, arg])
     end
 
     def match(left, right, options = nil)
@@ -89,13 +96,13 @@ class Predicate
 
     def sexpr(expr)
       case expr
-      when Expr       then expr
-      when Predicate  then expr.expr
-      when TrueClass  then Grammar.sexpr([:tautology, true])
-      when FalseClass then Grammar.sexpr([:contradiction, false])
-      when Symbol     then Grammar.sexpr([:identifier, expr])
-      when Proc       then Grammar.sexpr([:native, expr])
-      when Array      then Grammar.sexpr(expr)
+      when Expr        then expr
+      when Predicate   then expr.expr
+      when TrueClass   then Grammar.sexpr([:tautology, true])
+      when FalseClass  then Grammar.sexpr([:contradiction, false])
+      when Symbol      then Grammar.sexpr([:identifier, expr])
+      when Proc        then Grammar.sexpr([:native, expr])
+      when SexprLike   then Grammar.sexpr(expr)
       else
         Grammar.sexpr([:literal, expr])
       end

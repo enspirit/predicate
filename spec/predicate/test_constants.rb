@@ -65,6 +65,12 @@ class Predicate
       it{ should eq({}) }
     end
 
+    context "on in (opaque)" do
+      let(:pred){ p.in(:x, p.opaque([2])) }
+
+      it{ should eq({}) }
+    end
+
     context "on and (two eqs)" do
       let(:pred){ p.eq(:x, 2) & p.eq(:y, 4) }
 

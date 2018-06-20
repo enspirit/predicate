@@ -35,7 +35,7 @@ class Predicate
       let(:h){ {:x => [12], :y => :z} }
       let(:expected){
         [:and,
-          [:in, [:identifier, :x], [12]],
+          [:in, [:identifier, :x], [:literal, [12]]],
           [:eq, [:identifier, :y], [:identifier, :z]]]
       }
 

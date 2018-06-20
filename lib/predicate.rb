@@ -9,6 +9,8 @@ class Predicate
 
   TupleLike = ->(t){ t.is_a?(Hash) }
 
+  SexprLike = ->(x) { x.is_a?(Array) && x.first.is_a?(Symbol) }
+
   def initialize(sexpr)
     @sexpr = sexpr
   end

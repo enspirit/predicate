@@ -23,6 +23,10 @@ class Predicate
       sexpr_type == :literal
     end
 
+    def opaque?
+      sexpr_type == :opaque
+    end
+
     def identifier?
       sexpr_type == :identifier
     end
@@ -84,7 +88,6 @@ class Predicate
     def to_s(scope = nil)
       ToS.call(self, scope: scope)
     end
-    alias :inspect :to_s
 
     def sexpr(arg)
       Factory.sexpr(arg)

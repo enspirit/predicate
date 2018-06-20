@@ -93,7 +93,7 @@ class Predicate
           end
         }
       }
-      let(:predicate) { Predicate.in(:price, operand) }
+      let(:predicate) { Predicate.in(:price, Predicate.opaque(operand)) }
 
       it 'works as expected' do
         expect(subject).to eql("SELECT * FROM `items` WHERE (`price` IN (Hello World))")

@@ -50,7 +50,7 @@ class Predicate
     alias :on_gte :on_dyadic
 
     def on_in(sexpr)
-      "#{apply(sexpr.identifier)} IN #{to_literal(sexpr.values)}"
+      "#{apply(sexpr.identifier)} IN #{apply(sexpr.right)}"
     end
 
     def on_intersect(sexpr)
@@ -59,6 +59,10 @@ class Predicate
 
     def on_literal(sexpr)
       to_literal(sexpr.last)
+    end
+
+    def on_opaque(sexpr)
+      "OPAQUE #{sexpr.last}"
     end
 
     def on_match(sexpr)

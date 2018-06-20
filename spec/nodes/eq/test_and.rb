@@ -14,5 +14,17 @@ class Predicate
       it{ should be_a(Contradiction) }
     end
 
+    context 'with an IN on same variable and literal' do
+      let(:right){ Factory.in(:x, [3,4]) }
+
+      it{ should be(left) }
+    end
+
+    context 'with an IN on same variable and opaque' do
+      let(:right){ Factory.in(:x, Factory.opaque([3,4])) }
+
+      it{ should be_a(And) }
+    end
+
   end
 end

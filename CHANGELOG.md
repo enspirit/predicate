@@ -1,3 +1,9 @@
+# 2.1
+
+* Introduction of an `opaque` node kind to help with pseudo-literals
+  used in IN expressions. IN expressions now accept any right term,
+  instead of an array of values.
+
 # 2.0 - 2018-05-28
 
 * Add `Predicate#match` to match attributes against strings and

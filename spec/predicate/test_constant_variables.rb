@@ -22,6 +22,12 @@ class Predicate
       it{ expect(subject).to eql([]) }
     end
 
+    describe "on a in with an opaque right term" do
+      let(:p){ Predicate.in(:x, Predicate.opaque([2])) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
     describe "on a NOT" do
       let(:p){ !Predicate.coerce(x: 2) }
 
