@@ -1,3 +1,8 @@
+# 2.1.1 / 2019-05-29
+
+* Add `Predicate#call` alias to `Predicate#evaluate` in order to let
+  client write simpler expressions.
+
 # 2.1
 
 * Introduction of an `opaque` node kind to help with pseudo-literals

@@ -216,5 +216,14 @@ class Predicate
       end
     end
 
+    context 'has a call alias' do
+      let(:predicate){
+        Predicate.new(Factory.gte(:x => 0))
+      }
+
+      let(:scope){ { x: 2 } }
+
+      it{ expect(predicate.call(scope)).to be(true) }
+    end
   end
 end
