@@ -94,6 +94,10 @@ class Predicate
     expr.evaluate(tuple)
   end
 
+  def call(tuple)
+    expr.evaluate(tuple)
+  end
+
   # Splits this predicate, say P, as too predicates P1 & P2
   # such that `P <=> P1 & P2` and P2 makes no reference to
   # any attribute in `attr_list`.
