@@ -85,6 +85,30 @@ class Predicate
       end
     end
 
+    context 'in with nil among values' do
+      let(:predicate) { Predicate.in(:price, [nil, 10.0, 17.99]) }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE ((`price` IS NULL) OR (`price` IN (10.0, 17.99)))")
+      end
+    end
+
+    context 'in with nil among values that can be simplified' do
+      let(:predicate) { Predicate.in(:price, [nil, 17.99]) }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE ((`price` IS NULL) OR (`price` = 17.99))")
+      end
+    end
+
+    context 'in with only nil among values ' do
+      let(:predicate) { Predicate.in(:price, [nil]) }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE (`price` IS NULL)")
+      end
+    end
+
     context 'in with something responding to sql_literal' do
       let(:operand){
         Object.new.tap{|o|

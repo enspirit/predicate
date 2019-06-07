@@ -48,7 +48,19 @@ class Predicate
       def on_in(sexpr)
         left, right = apply(sexpr.identifier), sexpr.right
         if right.literal?
-          ::Sequel.expr(left => right.value)
+          values = Array(right.value).uniq
+          if values.include?(nil)
+            nonnil = values.compact
+            if nonnil.empty?
+              ::Sequel.expr(left => nil)
+            elsif nonnil.size == 1
+              ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil.first)
+            else
+              ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil)
+            end
+          else
+            ::Sequel.expr(left => right.value)
+          end
         elsif right.opaque?
           ::Sequel.expr(left => apply(right))
         else

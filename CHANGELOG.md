@@ -1,4 +1,8 @@
-# 2.1.1 / 2019-05-29
+# 2.1.1 / 2019-06-07
+
+* Fix SQL compilation of `Predicate#in` where the list of values
+  contains nil, including edge cases (e.g. where only nil is present).
+  In such cases a `x IS NULL OR (x IN (...))` is generated.
 
 * Add `Predicate#call` alias to `Predicate#evaluate` in order to let
   client write simpler expressions.
