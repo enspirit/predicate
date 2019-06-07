@@ -1,4 +1,4 @@
-# 2.1.1 / 2019-06-07
+# 2.2.0 / 2019-06-07
 
 * Fix SQL compilation of `Predicate#in` where the list of values
   contains nil, including edge cases (e.g. where only nil is present).
