@@ -84,9 +84,15 @@ class Predicate
     end
 
     context "on and (one eq, one in, same variable)" do
-      let(:pred){ p.in(:x, [4,8]) & p.eq(:x, 2) }
+      let(:pred){ p.in(:x, [2,8]) & p.eq(:x, 2) }
 
       it{ should eq({x: 2}) }
+    end
+
+    context "on and (one eq, one in, yielding contradiction)" do
+      let(:pred){ p.in(:x, [3,8]) & p.eq(:x, 2) }
+
+      it{ should eq({}) }
     end
 
     context "on and (contradiction)" do

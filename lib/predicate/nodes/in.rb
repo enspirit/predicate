@@ -16,23 +16,27 @@ class Predicate
     end
 
     def &(other)
-      # we only optimize with another In
-      return super unless other.is_a?(In)
+      case other
+      when Eq
+        other & self
+      when In
+        # we only optimize is same free variables
+        fv = free_variables
+        return super unless fv.size == 1 && fv == other.free_variables
 
-      # we only optimize is same free variables
-      fv = free_variables
-      return super unless fv.size == 1 && fv == other.free_variables
+        # we only optimize if both right terms are literals
+        return super unless right.literal? and other.right.literal?
 
-      # we only optimize if both right terms are literals
-      return super unless right.literal? and other.right.literal?
-
-      intersection = right.value & other.right.value
-      if intersection.empty?
-        Factory.contradiction
-      elsif intersection.size == 1
-        Factory.eq(fv.first, [:literal, intersection.first])
+        intersection = right.value & other.right.value
+        if intersection.empty?
+          Factory.contradiction
+        elsif intersection.size == 1
+          Factory.eq(fv.first, [:literal, intersection.first])
+        else
+          Factory.in(fv.first, intersection)
+        end
       else
-        Factory.in(fv.first, intersection)
+        super
       end
     end
 
@@ -63,6 +67,10 @@ class Predicate
     def evaluate(tuple)
       values = right.evaluate(tuple)
       values.include?(identifier.evaluate(tuple))
+    end
+
+    def var_against_literal?
+      left.identifier? && right.literal?
     end
 
   end

@@ -15,7 +15,7 @@ class Predicate
     end
 
     context 'with an IN on same variable and literal' do
-      let(:right){ Factory.in(:x, [3,4]) }
+      let(:right){ Factory.in(:x, [2,4]) }
 
       it{ should be(left) }
     end

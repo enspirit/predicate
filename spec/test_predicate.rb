@@ -117,6 +117,12 @@ describe "Predicate.and" do
   subject{ Predicate.and(Predicate.eq(:x, 12), Predicate.eq(:y, 12)) }
 
   it_should_behave_like "a predicate"
+
+  it 'detects contraditions' do
+    p1 = Predicate.in(:a, [10,11])
+    p2 = Predicate.eq(:a, 7)
+    expect(p1 & p2).to eq(Predicate.contradiction)
+  end
 end
 
 describe "Predicate.or" do
@@ -130,4 +136,3 @@ describe "Predicate.not" do
 
   it_should_behave_like "a predicate"
 end
-  

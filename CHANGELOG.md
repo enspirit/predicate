@@ -1,3 +1,8 @@
+# 2.2.1 / 2020-01-21
+
+* Fix `in(:x, [2, 3]) & eq(:x, 1)` begin wrongly optimized as `eq(:x, 1)`
+  while it must yield a contradiction.
+
 # 2.2.0 / 2019-06-07
 
 * Fix SQL compilation of `Predicate#in` where the list of values
