@@ -17,6 +17,10 @@ class Predicate
       _factor_predicate([:qualified_identifier, qualifier, name])
     end
 
+    def placeholder
+      Placeholder.new
+    end
+
     def and(left, right = nil)
       _factor_predicate([:and, sexpr(left), sexpr(right)])
     end
@@ -31,7 +35,7 @@ class Predicate
 
     def in(left, right)
       left, right = sexpr(left), sexpr(right)
-      if right.literal? && right.value.empty?
+      if right.literal? && right.empty_value?
         contradiction
       else
         _factor_predicate([:in, left, right])

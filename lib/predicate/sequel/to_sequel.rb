@@ -13,7 +13,13 @@ class Predicate
       end
 
       def on_literal(sexpr)
-        sexpr.last.nil? ? nil : ::Sequel.expr(sexpr.last)
+        if sexpr.last.nil?
+          nil
+        elsif sexpr.last.is_a?(Predicate::Placeholder)
+          ::Sequel.lit("?", :"$#{sexpr.last.object_id}")
+        else
+          ::Sequel.expr(sexpr.last)
+        end
       end
 
       ###
@@ -48,18 +54,22 @@ class Predicate
       def on_in(sexpr)
         left, right = apply(sexpr.identifier), sexpr.right
         if right.literal?
-          values = Array(right.value).uniq
-          if values.include?(nil)
-            nonnil = values.compact
-            if nonnil.empty?
-              ::Sequel.expr(left => nil)
-            elsif nonnil.size == 1
-              ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil.first)
-            else
-              ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil)
-            end
+          if right.has_placeholder?
+            ::Sequel.expr(left => [on_literal(right)])
           else
-            ::Sequel.expr(left => right.value)
+            values = Array(right.value).uniq
+            if values.include?(nil)
+              nonnil = values.compact
+              if nonnil.empty?
+                ::Sequel.expr(left => nil)
+              elsif nonnil.size == 1
+                ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil.first)
+              else
+                ::Sequel.expr(left => nil) | ::Sequel.expr(left => nonnil)
+              end
+            else
+              ::Sequel.expr(left => right.value)
+            end
           end
         elsif right.opaque?
           ::Sequel.expr(left => apply(right))
