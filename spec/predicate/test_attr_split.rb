@@ -35,6 +35,18 @@ class Predicate
       it{ should eq({ x: pred }) }
     end
 
+    context "on eq with placeholder" do
+      let(:pred){ p.eq(:x, p.placeholder) }
+
+      it{ should eq({ x: pred }) }
+    end
+
+    context "on in" do
+      let(:pred){ p.in(:x, [2]) }
+
+      it{ should eq({ x: pred }) }
+    end
+
     context "on match" do
       let(:pred){ p.match(:x, "London") }
 

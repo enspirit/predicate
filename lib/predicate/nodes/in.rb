@@ -26,6 +26,7 @@ class Predicate
 
         # we only optimize if both right terms are literals
         return super unless right.literal? and other.right.literal?
+        return super if right.has_placeholder? or other.right.has_placeholder?
 
         intersection = right.value & other.right.value
         if intersection.empty?
@@ -45,7 +46,7 @@ class Predicate
     end
 
     def constant_variables
-      if right.literal? and right.value.size == 1
+      if right.literal? and right.singleton_value?
         free_variables
       else
         []
@@ -53,7 +54,7 @@ class Predicate
     end
 
     def constants
-      if right.literal? and right.value.size == 1
+      if right.literal? and right.singleton_value?
         { identifier.name => right.value.first }
       else
         {}
@@ -66,6 +67,7 @@ class Predicate
 
     def evaluate(tuple)
       values = right.evaluate(tuple)
+      raise UnboundError if values.is_a?(Placeholder)
       values.include?(identifier.evaluate(tuple))
     end
 

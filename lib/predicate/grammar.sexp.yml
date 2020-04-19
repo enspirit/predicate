@@ -51,6 +51,7 @@ rules:
   term:
     - varref
     - literal
+    - placeholder
     - opaque
   varref:
     - qualified_identifier
@@ -59,6 +60,8 @@ rules:
     - [ "::Proc" ]
   literal:
     - "::Object"
+  placeholder:
+    - "::Predicate::Placeholder"
   opaque:
     - "::Object"
   options:

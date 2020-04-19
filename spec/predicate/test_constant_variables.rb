@@ -10,10 +10,42 @@ class Predicate
       it{ expect(subject).to eql([:x, :y]) }
     end
 
+    describe "on a comp(:eq) with placeholder" do
+      let(:p){ Predicate.coerce(x: Predicate.placeholder) }
+
+      it{ expect(subject).to eql([:x]) }
+    end
+
     describe "on a in with one value" do
       let(:p){ Predicate.in(:x, [2]) }
 
       it{ expect(subject).to eql([:x]) }
+    end
+
+    describe "on a in with one placeholder" do
+      let(:p){ Predicate.in(:x, Predicate.placeholder) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an intersect with many values" do
+      let(:p){ Predicate.intersect(:x, [2, 3]) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an intersect with one value" do
+      let(:p){ Predicate.intersect(:x, [2]) }
+
+      # TODO: is that correct?
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an intersect with a placeholder" do
+      let(:p){ Predicate.intersect(:x, Predicate.placeholder) }
+
+      # TODO: is that correct?
+      it{ expect(subject).to eql([]) }
     end
 
     describe "on a in with mutiple values" do

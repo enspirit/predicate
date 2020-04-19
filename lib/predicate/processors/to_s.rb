@@ -81,6 +81,7 @@ class Predicate
 
     def to_literal(x)
       case x
+      when Placeholder then "$#{x.object_id}"
       when Array then "{" << x.map{|y| to_literal(y) }.join(',') << "}"
       else x.inspect
       end

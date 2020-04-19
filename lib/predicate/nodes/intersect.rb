@@ -19,7 +19,7 @@ class Predicate
     end
 
     def constant_variables
-      values.size == 1 ? free_variables : []
+      []
     end
 
     def evaluate(tuple)

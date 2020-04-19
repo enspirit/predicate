@@ -23,6 +23,12 @@ class Predicate
       it{ should eq({x: 2}) }
     end
 
+    context "on eq(identifier,placeholder)" do
+      let(:pred){ p.eq(:x, p.placeholder) }
+
+      it{ should eq({}) }
+    end
+
     context "on eq(value,identifier)" do
       let(:pred){ p.eq(2, :x) }
 
@@ -103,6 +109,12 @@ class Predicate
 
     context "on intersect" do
       let(:pred){ p.intersect(:x, [4,8]) }
+
+      it{ should eq({}) }
+    end
+
+    context "on intersect with placeholder" do
+      let(:pred){ p.intersect(:x, p.placeholder) }
 
       it{ should eq({}) }
     end

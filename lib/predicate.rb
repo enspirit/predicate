@@ -1,11 +1,13 @@
 require 'sexpr'
 require_relative 'predicate/version'
+require_relative 'predicate/placeholder'
 require_relative 'predicate/factory'
 require_relative 'predicate/grammar'
 require_relative 'predicate/processors'
 class Predicate
 
   class NotSupportedError < StandardError; end
+  class UnboundError < StandardError; end
 
   TupleLike = ->(t){ t.is_a?(Hash) }
 
@@ -88,6 +90,10 @@ class Predicate
 
   def rename(renaming)
     Predicate.new(expr.rename(renaming))
+  end
+
+  def bind(binding)
+    Predicate.new(expr.bind(binding))
   end
 
   def evaluate(tuple)

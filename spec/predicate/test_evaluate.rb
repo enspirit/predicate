@@ -216,6 +216,16 @@ class Predicate
       end
     end
 
+    context 'when having a placeholder' do
+      let(:predicate){
+        Predicate.match(:eq, Predicate.placeholder)
+      }
+
+      it "raises an UnboundError" do
+        expect{ predicate.evaluate({}) }.to raise_error(UnboundError)
+      end
+    end
+
     context 'has a call alias' do
       let(:predicate){
         Predicate.new(Factory.gte(:x => 0))
