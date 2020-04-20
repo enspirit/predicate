@@ -32,9 +32,9 @@ class Predicate
 
     def constants
       left, right = sexpr(self.left), sexpr(self.right)
-      if left.identifier? && right.literal?
+      if left.identifier? && right.literal? && !right.has_placeholder?
         { left.name => right.value }
-      elsif right.identifier? && left.literal?
+      elsif right.identifier? && left.literal? && !left.has_placeholder?
         { right.name => left.value }
       else
         {}
