@@ -1,3 +1,15 @@
+# 2.3.0 / 2020-04-20
+
+* Add an experimental support for literal placeholders. The aim is to let
+  build complex expressions with unknown literals, to be bound later using
+  #bind. The latter returns a copy of the predicate, with placeholders
+  replaced by the values provided:
+
+      pl = Predicate.placeholder
+      p = Predicate.eq(:x, pl)
+      p2 = p.bind(x: 12)
+      p2.evaluate(x: 12)          # => true
+
 # 2.2.1 / 2020-01-21
 
 * Fix `in(:x, [2, 3]) & eq(:x, 1)` begin wrongly optimized as `eq(:x, 1)`
