@@ -13,9 +13,8 @@ class Predicate
         return self if constants == other.constants
         return contradiction
       when In
-        return super unless var_against_literal? && other.var_against_literal?
-        mine = self.right.value
-        hers = other.right.value
+        return super unless var_against_literal_value? && other.var_against_literal_value?
+        mine, hers = self.right.value, other.right.value
         return self if hers.include?(mine)
         contradiction
       else

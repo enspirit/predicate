@@ -1,3 +1,8 @@
+# 2.3.1 / 2020-04-29
+
+* Fix #eq against #in having a placeholder. Yields a undefined method
+  `include?`.
+
 # 2.3.0 / 2020-04-20
 
 * Add an experimental support for literal placeholders. The aim is to let

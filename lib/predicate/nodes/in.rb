@@ -71,8 +71,8 @@ class Predicate
       values.include?(identifier.evaluate(tuple))
     end
 
-    def var_against_literal?
-      left.identifier? && right.literal?
+    def var_against_literal_value?
+      left.identifier? && right.literal? && !right.has_placeholder?
     end
 
   end

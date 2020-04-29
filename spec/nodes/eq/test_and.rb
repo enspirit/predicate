@@ -26,5 +26,11 @@ class Predicate
       it{ should be_a(And) }
     end
 
+    context 'with an IN having a placeholder' do
+      let(:right){ Factory.in(:x, Factory.placeholder) }
+
+      it{ should be_a(And) }
+    end
+
   end
 end
