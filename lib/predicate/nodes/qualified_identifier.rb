@@ -15,7 +15,7 @@ class Predicate
     end
 
     def free_variables
-      @free_variables ||= [ name ]
+      @free_variables ||= [ :"#{qualifier}.#{name}" ]
     end
 
     def evaluate(tuple)

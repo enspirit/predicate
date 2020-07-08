@@ -38,5 +38,16 @@ class Predicate
       end
     end
 
+    context 'when using qualified names' do
+      let(:right) { Predicate.coerce(x: 2) }
+
+      it 'does not mix predicates' do
+        l = left.qualify(:p1)
+        r = right.qualify(:p2)
+        expect(l & r).not_to eql(l)
+      end
+
+    end
+
   end
 end

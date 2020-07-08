@@ -8,7 +8,7 @@ class Predicate
     subject{ predicate.and_split(list) }
 
     context 'when included' do
-      let(:list){ [:id, :name] }
+      let(:list){ [:"t.id", :name] }
 
       it{ should eq([predicate, tautology]) }
     end

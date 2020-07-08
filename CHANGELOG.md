@@ -1,3 +1,9 @@
+# 2.3.2
+
+* Fix Predicate#& when using qualified identifier. The qualifier was not
+  correctly taken into account, yielding conjunctions wrongly loosing
+  terms.
+
 # 2.3.1 / 2020-04-29
 
 * Fix #eq against #in having a placeholder. Yields a undefined method
