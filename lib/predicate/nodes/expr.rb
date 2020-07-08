@@ -77,6 +77,10 @@ class Predicate
       Qualifier.new(qualifier).call(self)
     end
 
+    def unqualify
+      Unqualifier.new.call(self)
+    end
+
     def bind(binding)
       Binder.new(binding).call(self)
     end

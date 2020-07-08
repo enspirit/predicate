@@ -88,6 +88,10 @@ class Predicate
     Predicate.new(expr.qualify(qualifier))
   end
 
+  def unqualify
+    Predicate.new(expr.unqualify)
+  end
+
   def rename(renaming)
     Predicate.new(expr.rename(renaming))
   end

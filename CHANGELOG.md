@@ -1,3 +1,9 @@
+# 2.3.3
+
+* Add Predicate#unqualify that transforms all qualified identifiers to
+  normal identifiers. The resulting predicate might not be semantically
+  equivalent.
+
 # 2.3.2 / 2020-07-08
 
 * Fix Predicate#& when using qualified identifier. The qualifier was not
