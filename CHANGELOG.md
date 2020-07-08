@@ -1,4 +1,4 @@
-# 2.3.3
+# 2.3.3 / 2020-07-08
 
 * Add Predicate#unqualify that transforms all qualified identifiers to
   normal identifiers. The resulting predicate might not be semantically
