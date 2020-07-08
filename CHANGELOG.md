@@ -1,4 +1,4 @@
-# 2.3.2
+# 2.3.2 / 2020-07-08
 
 * Fix Predicate#& when using qualified identifier. The qualifier was not
   correctly taken into account, yielding conjunctions wrongly loosing
