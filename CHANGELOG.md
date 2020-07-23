@@ -1,4 +1,4 @@
-# 2.4.0
+# 2.4.0 / 2020-07-23
 
 * Add Predicate#to_hash that allows getting back a Hash object
   representing the same predicate as of `Predicate.coerce` semantics.
