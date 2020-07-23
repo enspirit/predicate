@@ -48,5 +48,15 @@ class Predicate
       left.evaluate(tuple) == right.evaluate(tuple)
     end
 
+    def to_hash
+      if left.identifier? && right.literal? && !right.has_placeholder?
+        { left.name => right.value }
+      elsif right.identifier? && left.literal? && !left.has_placeholder?
+        { right.name => left.value }
+      else
+        super
+      end
+    end
+
   end
 end

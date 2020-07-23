@@ -9,6 +9,6 @@ class Predicate
 
       it{ should eq([:x]) }
     end
-    
+
   end
 end

@@ -75,5 +75,10 @@ class Predicate
       left.identifier? && right.literal? && !right.has_placeholder?
     end
 
+    def to_hash
+      return super unless var_against_literal_value?
+      { identifier.name => right.value }
+    end
+
   end
 end

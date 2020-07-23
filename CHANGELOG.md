@@ -1,3 +1,10 @@
+# 2.4.0
+
+* Add Predicate#to_hash that allows getting back a Hash object
+  representing the same predicate as of `Predicate.coerce` semantics.
+  The method raises an ArgumentError if the predicate cannot be
+  simplified so as to preserve the semantics.
+
 # 2.3.3 / 2020-07-08
 
 * Add Predicate#unqualify that transforms all qualified identifiers to

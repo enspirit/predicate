@@ -97,6 +97,10 @@ class Predicate
       ToS.call(self, scope: scope)
     end
 
+    def to_hash
+      raise ArgumentError, "Unable to represent #{self} to a Hash"
+    end
+
     def sexpr(arg)
       Factory.sexpr(arg)
     end

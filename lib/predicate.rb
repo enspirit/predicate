@@ -142,4 +142,11 @@ class Predicate
     expr.to_s(scope)
   end
 
+  # If possible, converts this predicate back to a `{ attr: value, ... }`
+  # hash. Raises an IllegalArgumentError if the predicate cannot be
+  # represented that way.
+  def to_hash
+    expr.to_hash
+  end
+
 end # class Predicate

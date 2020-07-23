@@ -53,5 +53,14 @@ class Predicate
       sexpr_body.all?{|operand| operand.evaluate(tuple) }
     end
 
+    def to_hash
+      sexpr_body.inject({}) do |p,term|
+        p.merge(term.to_hash){|k,v1,v2|
+          super unless v1 == v2
+          v1
+        }
+      end
+    end
+
   end
 end

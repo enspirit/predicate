@@ -38,5 +38,9 @@ class Predicate
       true
     end
 
+    def to_hash
+      {}
+    end
+
   end
 end
