@@ -1,38 +1,60 @@
 class Predicate
   module Factory
 
+    # Factors a Predicate that captures True
     def tautology
       _factor_predicate([:tautology, true])
     end
 
+    # Factors a Predicate that captures False
     def contradiction
       _factor_predicate([:contradiction, false])
     end
 
+    # Factors a Predicate for a free variable whose
+    # name is provided. If the variable is a Boolean
+    # variable, this is a valid Predicate, otherwise
+    # it must be used in a higher-level expression.
     def identifier(name)
       _factor_predicate([:identifier, name])
     end
 
+    # Factors a Predicate for a qualified free variable.
+    # Same remark as in `identifier`.
     def qualified_identifier(qualifier, name)
       _factor_predicate([:qualified_identifier, qualifier, name])
     end
 
+    # Builds and returns a placeholder that can be used
+    # everywhere a literal can be used. Placeholders can
+    # be bound later, using `Predicate#bind`.
     def placeholder
       Placeholder.new
     end
 
+    # Builds a AND predicate using two sub predicates.
+    #
+    # Please favor `Predicate#&` instead.
     def and(left, right = nil)
       _factor_predicate([:and, sexpr(left), sexpr(right)])
     end
 
+    # Builds a OR predicate using two sub predicates.
+    #
+    # Please favor `Predicate#|` instead.
     def or(left, right = nil)
       _factor_predicate([:or, sexpr(left), sexpr(right)])
     end
 
+    # Negates an existing predicate.
+    #
+    # Please favor `Predicate#!` instead.
     def not(operand)
       _factor_predicate([:not, sexpr(operand)])
     end
 
+    # Factors a IN predicate between a variable and
+    # either a list of values of another variable.
     def in(left, right)
       left, right = sexpr(left), sexpr(right)
       if right.literal? && right.empty_value?
@@ -43,15 +65,20 @@ class Predicate
     end
     alias :among :in
 
+    # Factors an INTERSECT predicate between a
+    # variable and a list of values.
     def intersect(identifier, values)
       identifier = sexpr(identifier) if identifier.is_a?(Symbol)
       _factor_predicate([:intersect, identifier, values])
     end
 
+    # :nodoc:
     def comp(op, h)
       from_hash(h, op)
     end
 
+    # Factors =, !=, <, <=, >, >= predicates between
+    # a variable and either a literal or another variable.
     [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
       define_method(m) do |left, right=nil|
         return comp(m, left) if TupleLike===left && right.nil?
@@ -59,11 +86,15 @@ class Predicate
       end
     end
 
+    # Shortcut for `gte(middle, lower_bound) & lte(middle, upperbound)`
     def between(middle, lower_bound, upper_bound)
       _factor_predicate [:and, [:gte, sexpr(middle), sexpr(lower_bound)],
                                [:lte, sexpr(middle), sexpr(upper_bound)]]
     end
 
+    # Builds a AND predicate between all key/value pairs
+    # of the provided Hash, using the comparison operator
+    # specified.
     def from_hash(h, op = :eq)
       if h.empty?
         tautology
@@ -80,20 +111,30 @@ class Predicate
       end
     end
 
+    # Factors a Literal node for some ruby value.
     def literal(literal)
       _factor_predicate([:literal, literal])
     end
 
-    def opaque(arg)
-      _factor_predicate([:opaque, arg])
-    end
-
+    # Factors a MATCH predicate between a variable
+    # and a literal or another variable.
+    #
+    # Matching options can be passes and are specific
+    # to the actual usage of the library.
     def match(left, right, options = nil)
       _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
     end
 
+    # Factors a predicate for a ruby Proc that returns
+    # truth-value for a single argument.
     def native(arg)
       _factor_predicate([:native, arg])
+    end
+
+    # Converts `arg` to an opaque predicate, whose semantics
+    # depends on the actual usage of the library.
+    def opaque(arg)
+      _factor_predicate([:opaque, arg])
     end
 
   protected
