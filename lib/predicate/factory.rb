@@ -56,11 +56,19 @@ class Predicate
     # Factors a IN predicate between a variable and
     # either a list of values of another variable.
     def in(left, right)
-      left, right = sexpr(left), sexpr(right)
-      if right.literal? && right.empty_value?
-        contradiction
+      case right
+      when Range
+        return contradiction if right.size == 0
+        rl = gte(left, right.begin)
+        rr = right.exclude_end? ? lt(left, right.end) : lte(left, right.end)
+        self.and(rl, rr)
       else
-        _factor_predicate([:in, left, right])
+        left, right = sexpr(left), sexpr(right)
+        if right.literal? && right.empty_value?
+          contradiction
+        else
+          _factor_predicate([:in, left, right])
+        end
       end
     end
     alias :among :in

@@ -49,13 +49,43 @@ describe "Predicate.comp" do
   it_should_behave_like "a predicate"
 end
 
-describe "Predicate.in" do
+describe "Predicate.in, with a list" do
   subject{ Predicate.in(:x, [2, 3]) }
 
   it_should_behave_like "a predicate"
 
   it 'should lead to a contradiction if value list is empty' do
     expect(Predicate.in(:x, [])).to eql(Predicate.contradiction)
+  end
+end
+
+describe "Predicate.in, with an inclusive range" do
+  subject{ Predicate.in(:x, 1..10) }
+
+  it_should_behave_like "a predicate"
+
+  it 'should be a shortcut over comparisons' do
+    expect(subject).to eql(Predicate.gte(:x, 1) & Predicate.lte(:x, 10))
+  end
+end
+
+describe "Predicate.in, with an exclusive range" do
+  subject{ Predicate.in(:x, 1...10) }
+
+  it_should_behave_like "a predicate"
+
+  it 'should be a shortcut over comparisons' do
+    expect(subject).to eql(Predicate.gte(:x, 1) & Predicate.lt(:x, 10))
+  end
+end
+
+describe "Predicate.in, with an empty range" do
+  subject{ Predicate.in(:x, 1...1) }
+
+  it_should_behave_like "a predicate"
+
+  it 'should be a contradiction' do
+    expect(subject).to eql(Predicate.contradiction)
   end
 end
 

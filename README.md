@@ -82,6 +82,8 @@ Predicate.eq(x: 2, y: :z)            # Shortcut for neq(:x, 2) & eq(:y, :z)
 # ... and so on for neq, lt, lte, gt, gte
 
 Predicate.between(v, l, h)           # Shortcut for gte(v,l) & lte(v,h)
+Predicate.in(:x, 1..10)              # Shortcut for gte(:x, 1) & lte(:x, 10)
+Predicate.in(:x, 1...10)             # Shortcut for gte(:x, 1) & lt(:x, 10)
 ```
 
 ### Set-based operators
