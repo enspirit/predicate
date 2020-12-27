@@ -54,10 +54,18 @@ a common API for expressing, evaluating, and manipulating them.
 * [Finitio](https://github.com/blambeau/finitio-rb)
 * [Webspicy](https://github.com/enspirit/webspicy)
 
+The library represents an expression as an AST internally. This allows for
+subsequent manipulations & reasoning. Please check the `Predicate::Factory`
+module for details.
+
+Some best-effort simplifications are also performed at construction and when
+boolean logic is used (and, or, not). For instance, `eq(:x, 6) & eq(:x, 10)`
+yields a `contradiction` predicate. There is currently no way to disable those
+simplifications, that were initially implemented for `Bmg`.
+
 ## Building expressions
 
-The following list of operators is currently available. Please check the
-`Predicate::Factory` module for the exact API to build expressions.
+The following list of operators is currently available.
 
 ### True and False
 
@@ -93,14 +101,14 @@ Predicate.gte(:x, 2)                 # x >= 2
 Predicate.gte(:x, :y)                # x >= y
 ```
 
-Shortcuts:
+Shortcuts (translated immediately, no trace kept in AST) :
 
 ```ruby
 Predicate.eq(x: 2, y: 6)             # Shortcut for eq(:x, 2) & eq(:y, 6)
-Predicate.eq(x: 2, y: :z)            # Shortcut for neq(:x, 2) & eq(:y, :z)
+Predicate.eq(x: 2, y: :z)            # Shortcut for eq(:x, 2) & eq(:y, :z)
 # ... and so on for neq, lt, lte, gt, gte
 
-Predicate.between(v, l, h)           # Shortcut for gte(v,l) & lte(v,h)
+Predicate.between(:x, l, h)          # Shortcut for gte(:x, l) & lte(:x, h), for all l and h
 Predicate.in(:x, 1..10)              # Shortcut for gte(:x, 1) & lte(:x, 10)
 Predicate.in(:x, 1...10)             # Shortcut for gte(:x, 1) & lt(:x, 10)
 ```
