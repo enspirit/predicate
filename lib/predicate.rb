@@ -36,6 +36,10 @@ class Predicate
     end
     alias :parse :coerce
 
+    def dsl(&bl)
+      Predicate.instance_eval(&bl)
+    end
+
   private
 
     def _factor_predicate(arg)

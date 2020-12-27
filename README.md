@@ -16,6 +16,15 @@ p.evaluate(x: 2, y: 3)
 # => false
 ```
 
+When building complex expressions, you can use the `dsl` method.
+
+```ruby
+# This builds the same predicate
+p = Predicate.dsl{
+  eq(:x, 2) & !lte(:y, 3)
+}
+```
+
 ## Rationale
 
 This reusable library is used in various ruby gems developed and maintained

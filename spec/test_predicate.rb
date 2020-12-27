@@ -136,3 +136,9 @@ describe "Predicate.not" do
 
   it_should_behave_like "a predicate"
 end
+
+describe "Predicate.dsl" do
+  subject{ Predicate.dsl{ eq(:x, 6) & lte(:y, 5)} }
+
+  it_should_behave_like "a predicate"
+end

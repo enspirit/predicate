@@ -1,3 +1,8 @@
+# 2.5.0
+
+* Add Predicate.dsl for building complex expressions without having
+  to prefix factory methods with `Predicate.` every time.
+
 # 2.4.0 / 2020-07-23
 
 * Add Predicate#to_hash that allows getting back a Hash object
