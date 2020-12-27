@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "sexpr", "~> 0.6.0"
 
-  s.add_development_dependency "rake", "~> 10"
-  s.add_development_dependency "rspec", "~> 3.6"
+  s.add_development_dependency "rake", "~> 13"
+  s.add_development_dependency "rspec", "~> 3"
   s.add_development_dependency "sequel"
   s.add_development_dependency "sqlite3"
 end
