@@ -96,7 +96,19 @@ describe "Predicate.among" do
 end
 
 describe "Predicate.intersect" do
-  subject{ Predicate.intersect(:w, [2, 3]) }
+  subject{ Predicate.intersect(:x, [2, 3]) }
+
+  it_should_behave_like "a predicate"
+end
+
+describe "Predicate.subset" do
+  subject{ Predicate.subset(:x, [2, 3]) }
+
+  it_should_behave_like "a predicate"
+end
+
+describe "Predicate.superset" do
+  subject{ Predicate.superset(:x, [2, 3]) }
 
   it_should_behave_like "a predicate"
 end

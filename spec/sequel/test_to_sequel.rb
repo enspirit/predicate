@@ -164,6 +164,22 @@ class Predicate
       end
     end
 
+    context 'subset' do
+      let(:predicate) { Predicate.subset(:x, [8, 9]) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(NotSupportedError)
+      end
+    end
+
+    context 'superset' do
+      let(:predicate) { Predicate.superset(:x, [8, 9]) }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(NotSupportedError)
+      end
+    end
+
     context 'match' do
       let(:predicate) { Predicate.match(left, right, options) }
       let(:options){ nil }

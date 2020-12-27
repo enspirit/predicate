@@ -90,7 +90,13 @@ Predicate.in(:x, 1...10)             # Shortcut for gte(:x, 1) & lt(:x, 10)
 
 ```ruby
 Predicate.in(:x, [2, 4, 6])          # x ∈ {2, 4, 6}
-Predicate.intersect(:x, [2, 4, 5])   # x ∩ {2, 4, 6} ≠ ∅
+Predicate.in(:x, :y)                 # x ∈ y
+Predicate.intersect(:x, [2, 4, 6])   # x ∩ {2, 4, 6} ≠ ∅
+Predicate.intersect(:x, :y)          # x ∩ y ≠ ∅
+Predicate.subset(:x, [2, 4, 6])      # x ⊆ {2, 4, 6}
+Predicate.subset(:x, :y)             # x ⊆ y
+Predicate.superset(:x, [2, 4, 6])    # x ⊇ {2, 4, 6}
+Predicate.superset(:x, :y)           # x ⊇ y
 ```
 
 ### String operators

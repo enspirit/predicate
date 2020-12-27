@@ -75,9 +75,11 @@ class Predicate
 
     # Factors an INTERSECT predicate between a
     # variable and a list of values.
-    def intersect(identifier, values)
-      identifier = sexpr(identifier) if identifier.is_a?(Symbol)
-      _factor_predicate([:intersect, identifier, values])
+    [:intersect, :subset, :superset].each do |name|
+      define_method(name) do |left, right|
+        identifier = sexpr(identifier) if identifier.is_a?(Symbol)
+        _factor_predicate([name, sexpr(left), sexpr(right)])
+      end
     end
 
     # :nodoc:

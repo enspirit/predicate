@@ -14,6 +14,8 @@ rules:
     - gte
     - in
     - intersect
+    - subset
+    - superset
     - match
     - native
   tautology:
@@ -45,6 +47,10 @@ rules:
   in:
     - [ varref, term ]
   intersect:
+    - [ term, term ]
+  subset:
+    - [ term, term ]
+  superset:
     - [ term, term ]
   match:
     - [ term, term, options ]

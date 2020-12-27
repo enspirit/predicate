@@ -80,7 +80,7 @@ class Predicate
       end
     end
 
-    context 'on an intersect predicate' do
+    context 'on an intersect predicate, with array literal' do
       let(:predicate){
         Predicate.intersect(:x, [8,9])
       }
@@ -93,6 +93,168 @@ class Predicate
 
       describe "on x == [9,12]" do
         let(:scope){ { :x => [9,12] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+    end
+
+    context 'on an intersect predicate, with two variables' do
+      let(:predicate){
+        Predicate.intersect(:x, :y)
+      }
+
+      describe "on x == [2]" do
+        let(:scope){ { :x => [2], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == [9,12]" do
+        let(:scope){ { :x => [9,12], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+    end
+
+    context 'on an subset predicate, with an array literal' do
+      let(:predicate){
+        Predicate.subset(:x, [8,9])
+      }
+
+      describe "on x == [2]" do
+        let(:scope){ { :x => [2] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == []" do
+        let(:scope){ { :x => [] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [9]" do
+        let(:scope){ { :x => [9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9]" do
+        let(:scope){ { :x => [8, 9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9, 10]" do
+        let(:scope){ { :x => [8, 9, 19] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+    end
+
+    context 'on an subset predicate, with two variables' do
+      let(:predicate){
+        Predicate.subset(:x, :y)
+      }
+
+      describe "on x == [2]" do
+        let(:scope){ { :x => [2], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == []" do
+        let(:scope){ { :x => [], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [9]" do
+        let(:scope){ { :x => [9], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9]" do
+        let(:scope){ { :x => [8, 9], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9, 10]" do
+        let(:scope){ { :x => [8, 9, 19], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+    end
+
+    context 'on an superset predicate, with an array literal' do
+      let(:predicate){
+        Predicate.superset(:x, [8,9])
+      }
+
+      describe "on x == [2]" do
+        let(:scope){ { :x => [2] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == []" do
+        let(:scope){ { :x => [] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == [9]" do
+        let(:scope){ { :x => [9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == [8, 9]" do
+        let(:scope){ { :x => [8, 9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9, 10]" do
+        let(:scope){ { :x => [8, 9, 19] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+    end
+
+    context 'on an superset predicate, with two variables' do
+      let(:predicate){
+        Predicate.superset(:x, :y)
+      }
+
+      describe "on x == [2]" do
+        let(:scope){ { :x => [2], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == []" do
+        let(:scope){ { :x => [], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == [9]" do
+        let(:scope){ { :x => [9], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_falsy }
+      end
+
+      describe "on x == [8, 9]" do
+        let(:scope){ { :x => [8, 9], :y => [8,9] } }
+
+        it{ expect(predicate.evaluate(scope)).to be_truthy }
+      end
+
+      describe "on x == [8, 9, 10]" do
+        let(:scope){ { :x => [8, 9, 19], :y => [8,9] } }
 
         it{ expect(predicate.evaluate(scope)).to be_truthy }
       end

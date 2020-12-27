@@ -83,5 +83,23 @@ class Predicate
       it{ should eq([ pred, p.tautology ]) }
     end
 
+    context "on intersect" do
+      let(:pred){ p.intersect(:x, [1, 2]) }
+
+      it{ should eq([ pred, p.tautology ]) }
+    end
+
+    context "on subset" do
+      let(:pred){ p.subset(:x, [1, 2]) }
+
+      it{ should eq([ pred, p.tautology ]) }
+    end
+
+    context "on superset" do
+      let(:pred){ p.superset(:x, [1, 2]) }
+
+      it{ should eq([ pred, p.tautology ]) }
+    end
+
   end
 end

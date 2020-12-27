@@ -119,6 +119,30 @@ class Predicate
       it{ should eq({}) }
     end
 
+    context "on subset" do
+      let(:pred){ p.subset(:x, [4,8]) }
+
+      it{ should eq({}) }
+    end
+
+    context "on subset with placeholder" do
+      let(:pred){ p.subset(:x, p.placeholder) }
+
+      it{ should eq({}) }
+    end
+
+    context "on superset" do
+      let(:pred){ p.superset(:x, [4,8]) }
+
+      it{ should eq({}) }
+    end
+
+    context "on superset with placeholder" do
+      let(:pred){ p.superset(:x, p.placeholder) }
+
+      it{ should eq({}) }
+    end
+
     context "on or (two eqs)" do
       let(:pred){ p.eq(:x, 2) | p.eq(:y, 4) }
 

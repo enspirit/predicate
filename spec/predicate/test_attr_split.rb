@@ -47,6 +47,24 @@ class Predicate
       it{ should eq({ x: pred }) }
     end
 
+    context "on intersect" do
+      let(:pred){ p.intersect(:x, [2]) }
+
+      it{ should eq({ x: pred }) }
+    end
+
+    context "on subset" do
+      let(:pred){ p.subset(:x, [2]) }
+
+      it{ should eq({ x: pred }) }
+    end
+
+    context "on superset" do
+      let(:pred){ p.superset(:x, [2]) }
+
+      it{ should eq({ x: pred }) }
+    end
+
     context "on match" do
       let(:pred){ p.match(:x, "London") }
 

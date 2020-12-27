@@ -37,14 +37,36 @@ class Predicate
     describe "on an intersect with one value" do
       let(:p){ Predicate.intersect(:x, [2]) }
 
-      # TODO: is that correct?
       it{ expect(subject).to eql([]) }
     end
 
     describe "on an intersect with a placeholder" do
       let(:p){ Predicate.intersect(:x, Predicate.placeholder) }
 
-      # TODO: is that correct?
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an subset with one value" do
+      let(:p){ Predicate.subset(:x, [2]) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an subset with a placeholder" do
+      let(:p){ Predicate.subset(:x, Predicate.placeholder) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an superset with one value" do
+      let(:p){ Predicate.superset(:x, [2]) }
+
+      it{ expect(subject).to eql([]) }
+    end
+
+    describe "on an superset with a placeholder" do
+      let(:p){ Predicate.superset(:x, Predicate.placeholder) }
+
       it{ expect(subject).to eql([]) }
     end
 

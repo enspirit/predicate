@@ -114,6 +114,8 @@ class Predicate
       end
       alias :on_native :on_unsupported
       alias :on_intersect :on_unsupported
+      alias :on_subset :on_unsupported
+      alias :on_superset :on_unsupported
     end
     include Methods
   end # class ToSequel

@@ -6,6 +6,12 @@
 * Add Predicate.in(:x, Range) as a shortcut over comparison
   operators.
 
+* Enhance Predicate.intersect to work fine between two variables.
+  WARN: This changes the internal AST representation of set
+  operators to have a real node at right.
+
+* Add Predicate.subset & Predicate.superset, similarly
+
 # 2.4.0 / 2020-07-23
 
 * Add Predicate#to_hash that allows getting back a Hash object

@@ -57,6 +57,14 @@ class Predicate
       "#{apply(sexpr.identifier)} INTERSECTS #{to_literal(sexpr.values)}"
     end
 
+    def on_subset(sexpr)
+      "#{apply(sexpr.identifier)} IS SUBSET OF #{to_literal(sexpr.values)}"
+    end
+
+    def on_superset(sexpr)
+      "#{apply(sexpr.identifier)} IS SUPERSET OF #{to_literal(sexpr.values)}"
+    end
+
     def on_literal(sexpr)
       to_literal(sexpr.last)
     end
