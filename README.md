@@ -25,6 +25,25 @@ p = Predicate.dsl{
 }
 ```
 
+If you have complex expressions with many members applying to the
+same variable, a `currying` dsl is provided.
+
+```ruby
+# Instead of this
+p = Predicate.gt(:x, 1) & Predicate.lt(:x, 10)
+
+# or this
+p = Predicate.dsl{
+  gt(:x, 1) & lt(:x, 10)
+}
+
+# do this
+p = Predicate.currying(:x){
+  gt(1) & lt(10)
+}
+
+```
+
 ## Rationale
 
 This reusable library is used in various ruby gems developed and maintained
@@ -103,6 +122,28 @@ Predicate.superset(:x, :y)           # x ⊇ y
 
 ```ruby
 Predicate.match(:x, /abc/)           # depends on usage, typically ruby's ===
+```
+
+### Interval operators
+
+```ruby
+Predicate.overlap([:x,:y], [1,10])
+Predicate.touches([:x,:y], [1,10])
+```
+
+### Abstract operators
+
+```ruby
+Predicate.empty(:x)
+Predicate.not_empty(:x)
+
+Predicate.size(:x, 1..)
+Predicate.size(:x, 1..10)
+Predicate.size(:x, 1...10)
+
+Predicate.cover(:x, [1, 2])
+Predicate.cover(:x, 1..10)
+Predicate.cover(:x, {foo: "bar"})
 ```
 
 ### Native expressions

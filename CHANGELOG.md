@@ -1,7 +1,11 @@
 # 2.5.0
 
 * Add Predicate.dsl for building complex expressions without having
-  to prefix factory methods with `Predicate.` every time.
+  to prefix factory methods with `Predicate.` all the time.
+
+* Add Predicate.currying for building complex expressions on a
+  single variable (say :x) without having to repeat :x as first
+  argument all the time.
 
 * Add Predicate.in(:x, Range) as a shortcut over comparison
   operators.

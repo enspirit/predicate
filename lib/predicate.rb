@@ -4,6 +4,7 @@ require_relative 'predicate/placeholder'
 require_relative 'predicate/factory'
 require_relative 'predicate/grammar'
 require_relative 'predicate/processors'
+require_relative 'predicate/currying'
 class Predicate
 
   class NotSupportedError < StandardError; end
@@ -38,6 +39,10 @@ class Predicate
 
     def dsl(&bl)
       Predicate.instance_eval(&bl)
+    end
+
+    def currying(var, &bl)
+      Predicate::Currying.new(var).instance_eval(&bl)
     end
 
   private
