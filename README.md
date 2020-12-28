@@ -25,8 +25,8 @@ p = Predicate.dsl{
 }
 ```
 
-If you have complex expressions with many members applying to the
-same variable, a `currying` dsl is provided.
+If you have complex expressions where many members apply to the same variable,
+a `currying` dsl is provided.
 
 ```ruby
 # Instead of this
@@ -56,8 +56,8 @@ p.evaluate(6)
 # => true
 ```
 
-... or, in contrast, if you want to apply boolean evaluation to more complex data
-structures that a flat Hash like `{:x => 6, ...}`
+... or, in contrast, if you want to evaluate boolean expressions over more
+complex data structures that a flat Hash like `{:x => 6, ...}`
 
 ```ruby
 x, y = Predicate.vars("items.0.price", "items.1.price")
@@ -72,13 +72,13 @@ p.evaluate({
 ```
 
 The following sections explain a) why we created this library, b) how to build
-expressions, c) what operators are available, and d) how abstract variables,
-and what features are supported when using them (because not all are).
+expressions, c) what operators are available, and d) how abstract variables
+work and what features are supported when using them (because not all are).
 
 ## Rationale
 
 This reusable library is used in various ruby gems developed and maintained
-by Enspirit, where boolean expressions are first-class citizen. It provides
+by Enspirit where boolean expressions are first-class citizen. It provides
 a common API for expressing, evaluating, and manipulating them.
 
 * [Bmg](https://github.com/enspirit/bmg)
@@ -89,10 +89,10 @@ The library represents an expression as an AST internally. This allows for
 subsequent manipulations & reasoning. Please check the `Predicate::Factory`
 module for details.
 
-Some best-effort simplifications are also performed at construction and when
+Best-effort simplifications are also performed at construction and when
 boolean logic is used (and, or, not). For instance, `eq(:x, 6) & eq(:x, 10)`
 yields a `contradiction` predicate. There is currently no way to disable those
-simplifications, that were initially implemented for `Bmg`.
+simplifications that were initially implemented for `Bmg`.
 
 ## Building expressions
 
@@ -165,15 +165,19 @@ Predicate.match(:x, /abc/)           # depends on usage, typically ruby's ===
 
 ### Native expressions
 
-Ruby `Proc` can be used to capture complex predicates. Resulting predicates
-cannot be translated to, e.g. SQL, and typically prevent optimizations and
-manipulations:
+Ruby `Proc` can be used to capture complex predicates. Native predicates always
+receive the top evaluation context as first argument.
 
 ```ruby
-Predicate.native(->(t){
+p = Predicate.native(->(t){
+  # t here is the {:x => 2, :y => 6} Hash below
   Foo::Bar.call_to_ruby_code?(t)
 })
+p.evaluate(:x => 2, :y => 6)
 ```
+
+Resulting predicates cannot be translated to, e.g. SQL, and typically prevent
+optimizations and manipulations:
 
 ## Available operators
 
@@ -181,14 +185,14 @@ The following operators are available on predicates.
 
 ### Evaluate
 
-`Predicate#evaluate` takes a Hash mapping each free variable of the predicate
-to a value, and returns the Boolean evaluation of the expression.
+`Predicate#evaluate` takes a Hash mapping each free variable to a value,
+and returns the Boolean evaluation of the expression.
 
 ```ruby
 # Let's build a simple predicate for 'x = 2 and not(y <= 3)'
 p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
 
-p.evaluate(x: 2, y: 6)
+p.evaluate(:x => 2, :y => 6)
 # => true
 ```
 
@@ -209,7 +213,7 @@ p = p.rename(:x => :z)        # z = 4
 pl = Predicate.placeholder
 p = Predicate.eq(:x, pl)      # x = _
 p = p.bind(pl, 5)             # x = 5
-p.evaluate(x: 10)
+p.evaluate(:x => 10)
 # => false
 ```
 
@@ -229,7 +233,7 @@ Qualify accepts a Hash to use different qualifiers for variables.
 
 ```ruby
 p = Predicate.eq(x: 2, y: 4)  # x = 2 & y = 4
-p.qualify(x: :t, y: :s)       # t.x = 2 & s.y = 4
+p.qualify(:x => :t, :y => :s)       # t.x = 2 & s.y = 4
 ```
 
 ### And split
@@ -243,9 +247,8 @@ p = Predicate.eq(x: 2, y: 4)  # x = 2 & y = 4
 p1, p2 = p.and_split([:x])    # p1 is x = 2 ; p2 is y = 4 
 ```
 
-Observe that `and_split` is always possible, but may degenerate to an
-uninteresting `p2`, typically when disjunctions are used.
-For instance,
+Observe that `and_split` is always possible but may degenerate to an
+uninteresting `p2`, typically when disjunctions are used. For instance,
 
 ```ruby
 p = Predicate.eq(x: 2) | Predicate.eq(y: 4)  # x = 2 | y = 4
@@ -265,21 +268,24 @@ to `pz`.
 ```ruby
 p = Predicate.eq(x: 2, y: 4)  # x = 2 & y = 4
 split = p.attr_split
-# => {x: Predicate.eq(:x, 2), y: Predicate.eq(:y, 4)}
+# => {
+#   :x => Predicate.eq(:x, 2),
+#   :y => Predicate.eq(:y, 4)
+# }
 ```
 
 ## Working with abstract variables
 
 WARNING: this `var` feature is only compatible with `Predicate#evaluate`
 and `Predicate#bind` so far. Other operators have not been tested and may fail
-in unexpected ways, or raise a NotImplementedError. Also, predicates using
-abstract variables are not properly translated to, e.g. SQL.
+in unexpected ways or raise a NotImplementedError. Also, predicates using
+abstract variables are not properly translated to e.g. SQL.
 
 By default, Predicate expects variable identifiers to be represented by
 ruby Symbols. `#evaluate` then takes a mapping between variables and values as
 a Hash:
 
-```
+```ruby
 # :x and :y are variable identifiers
 p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
 
@@ -289,14 +295,15 @@ p.evaluate(:x => 2, :y => 6)
 ```
 
 There are situations where you would like variables to be kept simple in
-expressions while evaluating expressions on complex data structures.
+expressions while evaluating the latter on complex data structures.
+
 `Predicate#var` can be used as an abstraction mechanism in such cases.
 It takes a variable definition as first argument and a semantics as second.
 The semantics defines how a value is extracted when the variable value must
 be evaluated.
 
 Supported protocols are `:dig`, `:send` and `:public_send`. Only `:dig`
-must be considered safe, and the two other ones used with great care.
+must be considered safe while the two other ones used with great care.
 
 * `:dig` relies on Ruby's `dig` protocol introduced in Ruby 2.3. It
   will work out of the box with Hash, Array, Struct, OpenStruct and
@@ -305,15 +312,14 @@ must be considered safe, and the two other ones used with great care.
   ```ruby
   xyz = Predicate.var([:x, :y, :z], :dig)
   p = Predicate.eq(xyz, 2)
-  p.evaluate({ x: { y: { z: 2 } } })
+  p.evaluate({ :x => { :y => { :z => 2 } } })
   # => true
   ```
 
-  When using :dig, the variable definition can be passed as a String,
+  When using `:dig` the variable definition can be passed as a String
   that will be automatically decomposed for you. Variable names are
-  transformed to Symbol and integer literals converted to Integer.
-  You must use the explicit version above if you don't want those
-  conversions.
+  transformed to Symbols and integer literals to Integers. You must
+  use the explicit version above if you don't want those conversions.
 
   ```ruby
   # this
@@ -323,7 +329,7 @@ must be considered safe, and the two other ones used with great care.
   Predicate.var([:x, 0, :y], :dig)
   ```
 
-* `:send` relies on Ruby's `__send__` method, and is generally less
+* `:send` relies on Ruby's `__send__` method and is generally less
   safe if variable definitions are not strictly controlled. But it
   allows evaluating predicates over any data structure made of pure
   ruby objects:
