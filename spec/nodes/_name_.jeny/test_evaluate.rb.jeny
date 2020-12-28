@@ -1,0 +1,19 @@
+#jenyctx predicate
+require 'spec_helper'
+class Predicate
+  describe ${Name}, "evaluate" do
+
+    let(:predicate){ Factory.${name}(TODO) }
+
+    subject{ predicate.evaluate(context) }
+
+    context "on TODO" do
+      let(:context){ TODO }
+
+      it 'works as expected' do
+        TODO
+      end
+    end
+
+  end
+end

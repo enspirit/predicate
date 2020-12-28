@@ -1,0 +1,2 @@
+#!/bin/sh
+jeny -d name:$1 s .

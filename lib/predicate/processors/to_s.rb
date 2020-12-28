@@ -77,6 +77,10 @@ class Predicate
       "#{apply(sexpr.left)} =~ #{apply(sexpr.right)}"
     end
 
+    #jeny(predicate) def on_${name}(sexpr)
+    #jeny(predicate)   "${name}(#{commalist(sexpr.body)})"
+    #jeny(predicate) end
+
     def on_native(sexpr)
       sexpr.last.inspect
     end
@@ -90,6 +94,10 @@ class Predicate
     end
 
   protected
+
+    def commalist(of)
+      of.map{|o| apply(o) }.join(',')
+    end
 
     def to_literal(x)
       case x

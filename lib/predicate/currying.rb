@@ -29,7 +29,8 @@ class Predicate
       #
       :between,
       #
-      :match
+      :match,
+      #jeny(predicate) :${name},
     ].each do |name|
       define_method(name) do |*args|
         Predicate.send(name, *args.unshift(@var))

@@ -147,6 +147,11 @@ class Predicate
       _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
     end
 
+    #jeny(predicate) def ${name}(*args)
+    #jeny(predicate)   args = args.map{|arg| sexpr(arg) }
+    #jeny(predicate)   _factor_predicate([:${name}] + args)
+    #jeny(predicate) end
+
     # Factors a predicate for a ruby Proc that returns
     # truth-value for a single argument.
     def native(arg)
