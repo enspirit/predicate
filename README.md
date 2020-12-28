@@ -3,16 +3,16 @@
 Boolean (truth-value) expressions that can be evaluated, manipulated,
 optimized, translated to code, etc.
 
-## Example
+## Example(s)
 
 ```ruby
 # Let's build a simple predicate for 'x = 2 and not(y <= 3)'
 p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
 
-p.evaluate(x: 2, y: 6)
+p.evaluate(:x => 2, :y => 6)
 # => true
 
-p.evaluate(x: 2, y: 3)
+p.evaluate(:x => 2, :y => 3)
 # => false
 ```
 
@@ -41,8 +41,39 @@ p = Predicate.dsl{
 p = Predicate.currying(:x){
   gt(1) & lt(10)
 }
-
+p.evaluate(:x => 6)
+# => true
 ```
+
+Predicate also works if you want to evaluate an expression on a single object
+without having to introduce a variable like `:x`...
+
+```ruby
+p = Predicate.currying{
+  gt(1) & lt(10)
+}
+p.evaluate(6)
+# => true
+```
+
+... or, in contrast, if you want to apply boolean evaluation to more complex data
+structures that a flat Hash like `{:x => 6, ...}`
+
+```ruby
+x, y = Predicate.vars("items.0.price", "items.1.price")
+p = Predicate.eq(x, 6) & Predicate.lt(y, 10)
+p.evaluate({
+  items: [
+    { name: "Candy", price: 6 },
+    { name: "Crush", price: 4 }
+  ]
+})
+# => true
+```
+
+The following sections explain a) why we created this library, b) how to build
+expressions, c) what operators are available, and d) how abstract variables,
+and what features are supported when using them (because not all are).
 
 ## Rationale
 
@@ -236,6 +267,93 @@ p = Predicate.eq(x: 2, y: 4)  # x = 2 & y = 4
 split = p.attr_split
 # => {x: Predicate.eq(:x, 2), y: Predicate.eq(:y, 4)}
 ```
+
+## Working with abstract variables
+
+WARNING: this `var` feature is only compatible with `Predicate#evaluate`
+and `Predicate#bind` so far. Other operators have not been tested and may fail
+in unexpected ways, or raise a NotImplementedError. Also, predicates using
+abstract variables are not properly translated to, e.g. SQL.
+
+By default, Predicate expects variable identifiers to be represented by
+ruby Symbols. `#evaluate` then takes a mapping between variables and values as
+a Hash:
+
+```
+# :x and :y are variable identifiers
+p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
+
+# the Hash below is a mapping between variables and values
+p.evaluate(:x => 2, :y => 6)
+# => true
+```
+
+There are situations where you would like variables to be kept simple in
+expressions while evaluating expressions on complex data structures.
+`Predicate#var` can be used as an abstraction mechanism in such cases.
+It takes a variable definition as first argument and a semantics as second.
+The semantics defines how a value is extracted when the variable value must
+be evaluated.
+
+Supported protocols are `:dig`, `:send` and `:public_send`. Only `:dig`
+must be considered safe, and the two other ones used with great care.
+
+* `:dig` relies on Ruby's `dig` protocol introduced in Ruby 2.3. It
+  will work out of the box with Hash, Array, Struct, OpenStruct and
+  more generally any object responding to `:dig`:
+
+  ```ruby
+  xyz = Predicate.var([:x, :y, :z], :dig)
+  p = Predicate.eq(xyz, 2)
+  p.evaluate({ x: { y: { z: 2 } } })
+  # => true
+  ```
+
+  When using :dig, the variable definition can be passed as a String,
+  that will be automatically decomposed for you. Variable names are
+  transformed to Symbol and integer literals converted to Integer.
+  You must use the explicit version above if you don't want those
+  conversions.
+
+  ```ruby
+  # this
+  Predicate.var("x.0.y", :dig)
+
+  # is equivalent to
+  Predicate.var([:x, 0, :y], :dig)
+  ```
+
+* `:send` relies on Ruby's `__send__` method, and is generally less
+  safe if variable definitions are not strictly controlled. But it
+  allows evaluating predicates over any data structure made of pure
+  ruby objects:
+
+  ```ruby
+  class C
+    attr_reader :x
+    def initialize(x)
+      @x = x
+    end
+  end
+
+  xy = Predicate.var([:x, :y], :send)
+  p = Predicate.eq(xy, 2)
+  p.evaluate(C.new(OpenStruct.new(y: 2)))
+  # => true
+    ```
+
+  The variable can similarly be passed as a dotted String that will be
+  decomposed as a sequence of Symbols.
+
+  ```ruby
+  xy = Predicate.var("x.y", :send)
+  p = Predicate.eq(xy, 2)
+  p.evaluate(C.new(OpenStruct.new(y: 2)))
+  # => true
+  ```
+
+* `:public_send` is similar to `:send` but slightly safer as it only
+  allows calling Ruby's public methods.
 
 ## Public API
 

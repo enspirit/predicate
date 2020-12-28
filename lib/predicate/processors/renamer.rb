@@ -19,6 +19,10 @@ class Predicate
       raise NotSupportedError
     end
 
+    def on_var(sexpr)
+      raise NotSupportedError
+    end
+
     alias :on_missing :copy_and_apply
 
   end

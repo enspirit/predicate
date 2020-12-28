@@ -41,7 +41,7 @@ class Predicate
       Predicate.instance_eval(&bl)
     end
 
-    def currying(var, &bl)
+    def currying(var = var(".", :dig), &bl)
       Predicate::Currying.new(var).instance_eval(&bl)
     end
 

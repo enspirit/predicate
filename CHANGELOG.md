@@ -1,20 +1,23 @@
 # 2.5.0
 
-* Add Predicate.dsl for building complex expressions without having
+* Add `Predicate.dsl` for building complex expressions without having
   to prefix factory methods with `Predicate.` all the time.
 
-* Add Predicate.currying for building complex expressions on a
+* Add `Predicate.currying` for building complex expressions on a
   single variable (say :x) without having to repeat :x as first
   argument all the time.
 
-* Add Predicate.in(:x, Range) as a shortcut over comparison
+* Add `Predicate.var` and `Predicate.vars` for working with abstract
+  variables over complex data structures.
+
+* Add `Predicate.in(:x, Range)` as a shortcut over comparison
   operators.
 
-* Enhance Predicate.intersect to work fine between two variables.
+* Enhance `Predicate.intersect` to work fine between two variables.
   WARN: This changes the internal AST representation of set
   operators to have a real node at right.
 
-* Add Predicate.subset & Predicate.superset, similarly
+* Add `Predicate.subset` & `Predicate.superset`, similarly.
 
 # 2.4.0 / 2020-07-23
 
