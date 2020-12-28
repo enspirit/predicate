@@ -1,0 +1,12 @@
+#jenyctx predicate
+class Predicate
+  module ${Name}
+    include Func
+
+    def evaluate(tuple)
+      # TODO: implement this
+      raise NotImplementedError
+    end
+
+  end
+end

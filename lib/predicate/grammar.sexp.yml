@@ -20,6 +20,7 @@ rules:
     - superset
     - match
     - native
+    #jeny(predicate) - ${name}
   tautology:
     - [ true ]
   contradiction:
@@ -87,3 +88,5 @@ rules:
     - "::String"
   array_formaldef:
     - "::Array"
+#jeny(predicate) ${name}:
+#jeny(predicate)   - [ TODO ]
