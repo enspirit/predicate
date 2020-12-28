@@ -81,6 +81,10 @@ class Predicate
       sexpr.last.inspect
     end
 
+    def on_var(sexpr)
+      "#{sexpr.semantics}(#{sexpr.formaldef})"
+    end
+
     def on_missing(sexpr)
       raise "Unimplemented: #{sexpr.first}"
     end

@@ -38,4 +38,16 @@ describe 'Predicate in a curried form' do
     end
   end
 
+  context 'without a variable name' do
+    it 'applies to the object passed' do
+      p = Predicate.currying{
+        gt(0) & lt(12)
+      }
+      expect(p.evaluate(0)).to be_falsy
+      expect(p.evaluate(1)).to be_truthy
+      expect(p.evaluate(11)).to be_truthy
+      expect(p.evaluate(12)).to be_falsy
+    end
+  end
+
 end

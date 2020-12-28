@@ -3,6 +3,8 @@ rules:
     - tautology
     - contradiction
     - identifier
+    - qualified_identifier
+    - var
     - not
     - and
     - or
@@ -26,6 +28,8 @@ rules:
     - [ name ]
   qualified_identifier:
     - [ name, name ]
+  var:
+    - [ formaldef, semantics ]
   not:
     - [ predicate ]
   and:
@@ -74,3 +78,12 @@ rules:
     - "::Hash"
   name:
     !ruby/regexp /^[a-zA-Z0-9_]+[?!]?$/
+  semantics:
+    !ruby/regexp /^(dig)$/
+  formaldef:
+    - string_formaldef
+    - array_formaldef
+  string_formaldef:
+    - "::String"
+  array_formaldef:
+    - "::Array"

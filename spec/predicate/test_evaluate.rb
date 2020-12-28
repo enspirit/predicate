@@ -397,5 +397,45 @@ class Predicate
 
       it{ expect(predicate.call(scope)).to be(true) }
     end
+
+    context "on a var, build with a dotted string" do
+      let(:predicate){
+        Predicate.var("x.0.y")
+      }
+
+      let(:scope){ { x: [{ y: 2 }] } }
+
+      it{ expect(predicate.call(scope)).to eql(2) }
+    end
+
+    context "on a var, build with a . string" do
+      let(:predicate){
+        Predicate.var(".")
+      }
+
+      let(:scope){ { x: [{ y: 2 }] } }
+
+      it{ expect(predicate.call(scope)).to be(scope) }
+    end
+
+    context "on a var, build with an array for terms" do
+      let(:predicate){
+        Predicate.var([:x, 0, :y])
+      }
+
+      let(:scope){ { x: [{ y: 2 }] } }
+
+      it{ expect(predicate.call(scope)).to eql(2) }
+    end
+
+    context "on a var, build with an empty array" do
+      let(:predicate){
+        Predicate.var([])
+      }
+
+      let(:scope){ { x: [{ y: 2 }] } }
+
+      it{ expect(predicate.call(scope)).to be(scope) }
+    end
   end
 end

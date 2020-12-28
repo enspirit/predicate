@@ -11,6 +11,18 @@ class Predicate
       _factor_predicate([:contradiction, false])
     end
 
+    # Factors a var node, using a given extractor semantics
+    def var(formaldef, semantics = :dig)
+      _factor_predicate([:var, formaldef, semantics])
+    end
+
+    # Factors a couple of variables at once. The semantics can
+    # be passed as a Symbol as last argument and defaults to :dig
+    def vars(*args)
+      args << :dig unless args.last.is_a?(Symbol)
+      args[0...-1].map{|v| var(v, args.last) }
+    end
+
     # Factors a Predicate for a free variable whose
     # name is provided. If the variable is a Boolean
     # variable, this is a valid Predicate, otherwise

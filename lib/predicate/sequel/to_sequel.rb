@@ -112,6 +112,7 @@ class Predicate
       def on_unsupported(sexpr)
         raise NotSupportedError, "Unsupported predicate #{sexpr}"
       end
+      alias :on_var :on_unsupported
       alias :on_native :on_unsupported
       alias :on_intersect :on_unsupported
       alias :on_subset :on_unsupported
