@@ -1,89 +1,102 @@
+---
 rules:
   predicate:
-    - tautology
-    - contradiction
-    - identifier
-    - qualified_identifier
-    - var
-    - not
-    - and
-    - or
-    - eq
-    - neq
-    - lt
-    - lte
-    - gt
-    - gte
-    - in
-    - intersect
-    - subset
-    - superset
-    - match
-    - native
+  - tautology
+  - contradiction
+  - identifier
+  - qualified_identifier
+  - var
+  - not
+  - and
+  - or
+  - eq
+  - neq
+  - lt
+  - lte
+  - gt
+  - gte
+  - in
+  - intersect
+  - subset
+  - superset
+  - match
+  - native
   tautology:
-    - [ true ]
+  - - true
   contradiction:
-    - [ false ]
+  - - false
   identifier:
-    - [ name ]
+  - - name
   qualified_identifier:
-    - [ name, name ]
+  - - name
+    - name
   var:
-    - [ formaldef, semantics ]
+  - - formaldef
+    - semantics
   not:
-    - [ predicate ]
+  - - predicate
   and:
-    - [ predicate+ ]
+  - - predicate+
   or:
-    - [ predicate+ ]
+  - - predicate+
   eq:
-    - [ term, term ]
+  - - term
+    - term
   neq:
-    - [ term, term ]
+  - - term
+    - term
   lt:
-    - [ term, term ]
+  - - term
+    - term
   lte:
-    - [ term, term ]
+  - - term
+    - term
   gt:
-    - [ term, term ]
+  - - term
+    - term
   gte:
-    - [ term, term ]
+  - - term
+    - term
   in:
-    - [ varref, term ]
+  - - varref
+    - term
   intersect:
-    - [ term, term ]
+  - - term
+    - term
   subset:
-    - [ term, term ]
+  - - term
+    - term
   superset:
-    - [ term, term ]
+  - - term
+    - term
   match:
-    - [ term, term, options ]
+  - - term
+    - term
+    - options
   term:
-    - varref
-    - literal
-    - placeholder
-    - opaque
+  - varref
+  - literal
+  - placeholder
+  - opaque
   varref:
-    - qualified_identifier
-    - identifier
+  - qualified_identifier
+  - identifier
   native:
-    - [ "::Proc" ]
+  - - "::Proc"
   literal:
-    - "::Object"
+  - "::Object"
   placeholder:
-    - "::Predicate::Placeholder"
+  - "::Predicate::Placeholder"
   opaque:
-    - "::Object"
+  - "::Object"
   options:
-    - "::Hash"
-  name:
-    !ruby/regexp /^[a-zA-Z0-9_]+[?!]?$/
-  semantics:
-    !ruby/regexp /^(dig)$/
+  - "::Hash"
+  name: !ruby/regexp /^[a-zA-Z0-9_]+[?!]?$/
+  semantics: !ruby/regexp /^(dig)$/
   formaldef:
-    - string_formaldef
-    - array_formaldef
+  - string_formaldef
+  - array_formaldef
   string_formaldef:
-    - "::String"
+  - "::String"
   array_formaldef:
-    - "::Array"
+  - "::Array"
