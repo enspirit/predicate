@@ -1,22 +1,10 @@
 class Predicate
   module Match
-    include Expr
+    include BinaryFunc
 
     DEFAULT_OPTIONS = {
       case_sensitive: true
     }
-
-    def priority
-      80
-    end
-
-    def left
-      self[1]
-    end
-
-    def right
-      self[2]
-    end
 
     def options
       @options ||= DEFAULT_OPTIONS.merge(self[3] || {})
@@ -24,14 +12,6 @@ class Predicate
 
     def case_sentitive?
       options[:case_sensitive]
-    end
-
-    def free_variables
-      @free_variables ||= left.free_variables | right.free_variables
-    end
-
-    def dyadic_priority
-      800
     end
 
     def evaluate(tuple)
