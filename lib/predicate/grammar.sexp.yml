@@ -66,6 +66,7 @@ rules:
   varref:
     - qualified_identifier
     - identifier
+    - var
   native:
     - [ "::Proc" ]
   literal:
