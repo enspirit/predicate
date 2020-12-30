@@ -1,4 +1,4 @@
-# 2.5.0
+# 2.5.0 - 2020-12-30
 
 * Add `Predicate.dsl` for building complex expressions without having
   to prefix factory methods with `Predicate.` all the time.
@@ -13,13 +13,20 @@
 * Add `Predicate.in(:x, Range)` as a shortcut over comparison
   operators.
 
-* Add `Predicate.empty`, `.has_size`, `.min_size`, `.max_size`.
+* Add `Predicate.is_null`, `Predicate.empty`, `.has_size`, `.min_size`,
+  `.max_size`.
+
+* Add negated and camelCase predicate forms, available only when using
+  the `dsl` and `currying` variant of it.
 
 * Enhance `Predicate.intersect` to work fine between two variables.
   WARN: This changes the internal AST representation of set
   operators to have a real node at right.
 
 * Add `Predicate.subset` & `Predicate.superset`, similarly.
+
+* Enhanced README, specified the public API, add jeny code blocks to
+  help contributors providing new predicates.
 
 # 2.4.0 / 2020-07-23
 
