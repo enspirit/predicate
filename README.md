@@ -394,8 +394,11 @@ must be considered safe while the two other ones used with great care.
 This library follows semantics versioning 2.0. Its public API is:
 
 * Class methods of the `Predicate` class, such as those covered in the
-  "Building expressions" section above (that is, the `Predicate::Factory`
-  module).
+  "Building expressions" section above.
+
+* DSL methods contributed by `Predicate::Factory`, `Predicate::Sugar`,
+  and `Predicate::Dsl` modules ; including dynamic ones (negation,
+  camelCase, etc.)
 
 * Instance methods of the `Predicate` class, such as those covered in the
   "Available operators" section above.
@@ -403,7 +406,7 @@ This library follows semantics versioning 2.0. Its public API is:
 * Instance and class methods contributed by plugins (e.g. `predicate/sequel`).
 
 * Exception classes: `Predicate::NotSupportedError`,
-  `Predicate::UnboundError`.
+  `Predicate::UnboundError` and `Predicate::TypeError`.
 
 The AST representation of predicate expressions is NOT part of the public API.
 We bump the minor version of the library when it changes, though.
