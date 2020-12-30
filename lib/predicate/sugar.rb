@@ -21,7 +21,7 @@ class Predicate
       unless right.is_a?(Integer)
         raise ArgumentError, "Integer expected, got #{right}"
       end
-      has_size(left, right..)
+      has_size(left, Range.new(right,nil))
     end
 
     def max_size(left, right)

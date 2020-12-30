@@ -24,7 +24,7 @@ class Predicate
       end
     end
 
-    context 'when used on bewteen' do
+    context 'when used on between' do
       context 'curried' do
         let(:bl){
           Proc.new{ between(2, 6) }
@@ -48,7 +48,7 @@ class Predicate
           Proc.new{ min_size(6) }
         }
 
-        it { expect(subject).to eq(Predicate.has_size(:x, 6..))}
+        it { expect(subject).to eq(Predicate.has_size(:x, Range.new(6, nil)))}
       end
 
       context 'curried' do
@@ -56,7 +56,7 @@ class Predicate
           Proc.new{ min_size(:y, 6) }
         }
 
-        it { expect(subject).to eq(Predicate.has_size(:y, 6..))}
+        it { expect(subject).to eq(Predicate.has_size(:y, Range.new(6, nil)))}
       end
     end
 
