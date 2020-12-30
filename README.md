@@ -403,10 +403,12 @@ releases).
 Please use github issues and pull requests, and favor the latter if possible.
 
 This repository uses the help of [jeny](https://github.com/enspirit/jeny) to
-generate code snippets when adding new predicates.
+generate code snippets when adding new predicates. It supports `predicate`
+and `sugar` snippets and add code to be completed in various places:
 
 ```
 bundle exec jeny s predicate -d op_name:my_predicate -d arity:unary
+bundle exec jeny s sugar     -d op_name:my_shortcut
 ```
 
 ## Licence
