@@ -58,7 +58,7 @@ class Predicate
 
         it { expect(subject).to eq(Predicate.has_size(:y, Range.new(6, nil)))}
       end
-    end
+    end if RUBY_VERSION >= "2.6"
 
     context 'when used on match' do
       context 'curryied' do

@@ -8,7 +8,7 @@ describe "Predicate.min_size" do
     expect(subject.call(x: "")).to eq(false)
     expect(subject.call(x: "1")).to eq(true)
   end
-end
+end if RUBY_VERSION >= "2.6"
 
 describe "Predicate.max_size" do
   subject{ Predicate.max_size(:x, 10) }
