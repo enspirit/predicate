@@ -2,6 +2,7 @@ require_relative 'shared/a_predicate_ast_node'
 class Predicate
   describe Factory, 'match' do
     include Factory
+    include Sugar
 
     context 'without options' do
       subject{ match(:name, "London") }

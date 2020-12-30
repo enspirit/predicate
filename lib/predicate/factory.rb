@@ -1,6 +1,8 @@
 class Predicate
   module Factory
 
+  public # Boolean
+
     # Factors a Predicate that captures True
     def tautology
       _factor_predicate([:tautology, true])
@@ -10,6 +12,15 @@ class Predicate
     def contradiction
       _factor_predicate([:contradiction, false])
     end
+
+  public # Literals
+
+    # Factors a Literal node for some ruby value.
+    def literal(literal)
+      _factor_predicate([:literal, literal])
+    end
+
+  public # Vars & identifiers
 
     # Factors a var node, using a given extractor semantics
     def var(formaldef, semantics = :dig)
@@ -44,6 +55,8 @@ class Predicate
       Placeholder.new
     end
 
+  public # Boolean logic
+
     # Builds a AND predicate using two sub predicates.
     #
     # Please favor `Predicate#&` instead.
@@ -64,6 +77,23 @@ class Predicate
     def not(operand)
       _factor_predicate([:not, sexpr(operand)])
     end
+
+  public # Comparison operators
+
+    # :nodoc:
+    def comp(op, h)
+      from_hash(h, op)
+    end
+
+    # Factors =, !=, <, <=, >, >= predicates between
+    # a variable and either a literal or another variable.
+    [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
+      define_method(m) do |left, right|
+        _factor_predicate([m, sexpr(left), sexpr(right)])
+      end
+    end
+
+  # Set operators
 
     # Factors a IN predicate between a variable and
     # either a list of values of another variable.
@@ -94,56 +124,17 @@ class Predicate
       end
     end
 
-    # :nodoc:
-    def comp(op, h)
-      from_hash(h, op)
-    end
-
-    # Factors =, !=, <, <=, >, >= predicates between
-    # a variable and either a literal or another variable.
-    [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
-      define_method(m) do |left, right|
-        _factor_predicate([m, sexpr(left), sexpr(right)])
-      end
-    end
-
-    # Shortcut for `gte(middle, lower_bound) & lte(middle, upperbound)`
-    def between(middle, lower_bound, upper_bound)
-      _factor_predicate [:and, [:gte, sexpr(middle), sexpr(lower_bound)],
-                               [:lte, sexpr(middle), sexpr(upper_bound)]]
-    end
-
-    # Builds a AND predicate between all key/value pairs
-    # of the provided Hash, using the comparison operator
-    # specified.
-    def from_hash(h, op = :eq)
-      if h.empty?
-        tautology
-      else
-        terms = h.to_a.map{|(k,v)|
-          if v.is_a?(Array)
-            [:in, sexpr(k), sexpr(v)]
-          else
-            [op, sexpr(k), sexpr(v)]
-          end
-        }
-        terms = terms.size == 1 ? terms.first : terms.unshift(:and)
-        _factor_predicate terms
-      end
-    end
-
-    # Factors a Literal node for some ruby value.
-    def literal(literal)
-      _factor_predicate([:literal, literal])
-    end
+  public # Other operators
 
     # Factors a MATCH predicate between a variable
     # and a literal or another variable.
     #
     # Matching options can be passes and are specific
     # to the actual usage of the library.
-    def match(left, right, options = nil)
-      _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
+    def match(left, right, options)
+      s = [:match, sexpr(left), sexpr(right)]
+      s << options unless options.nil?
+      _factor_predicate(s)
     end
 
     # Factors an EMPTY predicate that responds true
@@ -167,6 +158,8 @@ class Predicate
     #jeny(predicate)   _factor_predicate([:${op_name}] + args)
     #jeny(predicate) end
 
+  public # Low-level
+
     # Factors a predicate for a ruby Proc that returns
     # truth-value for a single argument.
     def native(arg)
@@ -177,6 +170,27 @@ class Predicate
     # depends on the actual usage of the library.
     def opaque(arg)
       _factor_predicate([:opaque, arg])
+    end
+
+  public # Semi protected
+
+    # Builds a AND predicate between all key/value pairs
+    # of the provided Hash, using the comparison operator
+    # specified.
+    def from_hash(h, op = :eq)
+      if h.empty?
+        tautology
+      else
+        terms = h.to_a.map{|(k,v)|
+          if v.is_a?(Array)
+            [:in, sexpr(k), sexpr(v)]
+          else
+            [op, sexpr(k), sexpr(v)]
+          end
+        }
+        terms = terms.size == 1 ? terms.first : terms.unshift(:and)
+        _factor_predicate terms
+      end
     end
 
   protected

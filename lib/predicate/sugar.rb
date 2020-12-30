@@ -8,6 +8,15 @@ class Predicate
       end
     end
 
+    def between(middle, lower_bound, upper_bound)
+      _factor_predicate [:and, [:gte, sexpr(middle), sexpr(lower_bound)],
+                               [:lte, sexpr(middle), sexpr(upper_bound)]]
+    end
+
+    def match(left, right, options = nil)
+      super(left, right, options)
+    end
+
     def min_size(left, right)
       unless right.is_a?(Integer)
         raise ArgumentError, "Integer expected, got #{right}"
