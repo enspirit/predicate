@@ -39,7 +39,7 @@ class Predicate
       :gte,
       #
       :empty,
-      :size,
+      :has_size,
       #jeny(predicate) :${op_name},
     ].each do |name|
       define_method(name) do |*args|
