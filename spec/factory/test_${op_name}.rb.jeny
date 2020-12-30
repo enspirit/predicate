@@ -1,4 +1,4 @@
-#jenyctx predicate
+#jeny(predicate)
 require_relative 'shared/a_predicate_ast_node'
 class Predicate
   describe Factory, '${op_name}' do

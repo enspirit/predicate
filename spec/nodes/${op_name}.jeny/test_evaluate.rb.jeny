@@ -1,4 +1,4 @@
-#jenyctx predicate
+#jeny(predicate)
 require 'spec_helper'
 class Predicate
   describe ${OpName}, "evaluate" do

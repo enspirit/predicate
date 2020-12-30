@@ -1,4 +1,4 @@
-#jenyctx predicate
+#jeny(predicate)
 class Predicate
   module ${OpName}
     include ${Arity}Func
