@@ -147,12 +147,19 @@ class Predicate
       _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
     end
 
-    # Factors an EMPTY predicate that respond true
+    # Factors an EMPTY predicate that responds true
     # when its operand is something empty.
     #
     # Default evaluation uses ruby `empty?` method.
     def empty(operand)
       _factor_predicate([:empty, sexpr(operand)])
+    end
+
+    # Factors a SIZE predicate that responds true when
+    # its operand has a size meeting the right constraint
+    # (typically a Range literal)
+    def has_size(left, right)
+      _factor_predicate([:has_size, sexpr(left), sexpr(right)])
     end
 
     #jeny(predicate) # TODO

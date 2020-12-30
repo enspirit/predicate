@@ -21,6 +21,7 @@ rules:
     - match
     - native
     - empty
+    - has_size
     #jeny(predicate) - ${op_name}
   tautology:
     - [ true ]
@@ -62,6 +63,8 @@ rules:
     - [ term, term, options ]
   empty:
     - [ term ]
+  has_size:
+    - [ term, term ]
 #jeny(predicate)   ${op_name}:
 #jeny(predicate)     - [ TODO ]
   term:

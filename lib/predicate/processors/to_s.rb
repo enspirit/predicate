@@ -81,6 +81,10 @@ class Predicate
       "EMPTY(#{commalist(sexpr.body)})"
     end
 
+    def on_size(sexpr)
+      "SIZE(#{commalist(sexpr.body)})"
+    end
+
     #jeny(predicate) def on_${op_name}(sexpr)
     #jeny(predicate)   "${OP_NAME}(#{commalist(sexpr.body)})"
     #jeny(predicate) end

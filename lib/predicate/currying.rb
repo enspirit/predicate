@@ -31,6 +31,7 @@ class Predicate
       #
       :match,
       :empty,
+      :size,
       #jeny(predicate) :${op_name},
     ].each do |name|
       define_method(name) do |*args|

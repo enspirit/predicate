@@ -191,6 +191,12 @@ describe "Predicate.empty" do
   it_should_behave_like "a predicate"
 end
 
+describe "Predicate.has_size" do
+  subject{ Predicate.has_size(:x, 1..10) }
+
+  it_should_behave_like "a predicate"
+end
+
 #jeny(predicate) describe "Predicate.${op_name}" do
 #jeny(predicate)   subject{ Predicate.${op_name}(TODO) }
 #jeny(predicate)

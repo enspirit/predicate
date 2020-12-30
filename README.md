@@ -157,10 +157,18 @@ Predicate.superset(:x, [2, 4, 6])    # x ⊇ {2, 4, 6}
 Predicate.superset(:x, :y)           # x ⊇ y
 ```
 
-### String operators
+### Other operators
+
+The following operators have no clear mathematical semantics. Their semantics
+depends on the underlying type system. Most are currently not supported outside
+of ruby (e.g. SQL compilation). The documentation below applies to a Ruby usage.
 
 ```ruby
-Predicate.match(:x, /abc/)           # depends on usage, typically ruby's ===
+Predicate.match(:x, /abc/)           # ruby's ===
+Predicate.empty(:x)                  # ruby's empty?
+Predicate.has_size(:x, 1..10)        # ruby's size and ===
+Predicate.has_size(:x, 10)           # Same as has_size(:x, 10..10)
+Predicate.has_size(:x, :y)           # y must resolve to a Range or Integer
 ```
 
 ### Native expressions
