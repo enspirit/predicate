@@ -1,6 +1,3 @@
 Jeny::Configuration.new do |c|
-  c.open_editor_on_snippets = ->(_,content) {
-    content =~ /TODO/
-  }
   c.state_manager = :git
 end
