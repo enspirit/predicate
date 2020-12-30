@@ -147,6 +147,15 @@ class Predicate
       _factor_predicate([:match, sexpr(left), sexpr(right)] + (options.nil? ? [] : [options]))
     end
 
+    # Factors an EMPTY predicate that respond true
+    # when its operand is something empty.
+    #
+    # Default evaluation uses ruby `empty?` method.
+    def empty(operand)
+      _factor_predicate([:empty, sexpr(operand)])
+    end
+
+    #jeny(predicate) # TODO
     #jeny(predicate) def ${name}(*args)
     #jeny(predicate)   args = args.map{|arg| sexpr(arg) }
     #jeny(predicate)   _factor_predicate([:${name}] + args)

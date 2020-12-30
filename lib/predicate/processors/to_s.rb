@@ -77,6 +77,10 @@ class Predicate
       "#{apply(sexpr.left)} =~ #{apply(sexpr.right)}"
     end
 
+    def on_empty(sexpr)
+      "empty(#{commalist(sexpr.body)})"
+    end
+
     #jeny(predicate) def on_${name}(sexpr)
     #jeny(predicate)   "${name}(#{commalist(sexpr.body)})"
     #jeny(predicate) end

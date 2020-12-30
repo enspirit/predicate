@@ -185,6 +185,12 @@ describe "Predicate.dsl" do
   it_should_behave_like "a predicate"
 end
 
+describe "Predicate.empty" do
+  subject{ Predicate.empty(:x) }
+
+  it_should_behave_like "a predicate"
+end
+
 #jeny(predicate) describe "Predicate.${name}" do
 #jeny(predicate)   subject{ Predicate.${name}(TODO) }
 #jeny(predicate)

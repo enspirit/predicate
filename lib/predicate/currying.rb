@@ -30,6 +30,7 @@ class Predicate
       :between,
       #
       :match,
+      :empty,
       #jeny(predicate) :${name},
     ].each do |name|
       define_method(name) do |*args|

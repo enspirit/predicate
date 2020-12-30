@@ -20,6 +20,7 @@ rules:
     - superset
     - match
     - native
+    - empty
     #jeny(predicate) - ${name}
   tautology:
     - [ true ]
@@ -59,6 +60,8 @@ rules:
     - [ term, term ]
   match:
     - [ term, term, options ]
+  empty:
+    - [ term ]
 #jeny(predicate)   ${name}:
 #jeny(predicate)     - [ TODO ]
   term:

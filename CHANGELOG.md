@@ -13,6 +13,8 @@
 * Add `Predicate.in(:x, Range)` as a shortcut over comparison
   operators.
 
+* Add `Predicate.empty`.
+
 * Enhance `Predicate.intersect` to work fine between two variables.
   WARN: This changes the internal AST representation of set
   operators to have a real node at right.
