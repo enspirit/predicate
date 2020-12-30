@@ -50,4 +50,14 @@ describe 'Predicate in a curried form' do
     end
   end
 
+  context 'on shortcuts' do
+    it 'applies to the object passed' do
+      p = Predicate.currying{
+        min_size(5)
+      }
+      expect(p.evaluate("1")).to be_falsy
+      expect(p.evaluate("013456789")).to be_truthy
+    end
+  end
+
 end

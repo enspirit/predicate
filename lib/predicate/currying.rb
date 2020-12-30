@@ -39,5 +39,15 @@ class Predicate
       end
     end
 
+    [
+      :min_size,
+      :max_size,
+      #jeny(sugar) :${op_name},
+    ].each do |name|
+      define_method(name) do |*args|
+        Predicate.send(name, *args.unshift(@var))
+      end
+    end
+
   end # class Currying
 end # class Predicate

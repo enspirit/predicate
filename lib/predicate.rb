@@ -2,6 +2,7 @@ require 'sexpr'
 require_relative 'predicate/version'
 require_relative 'predicate/placeholder'
 require_relative 'predicate/factory'
+require_relative 'predicate/sugar'
 require_relative 'predicate/grammar'
 require_relative 'predicate/processors'
 require_relative 'predicate/currying'
@@ -24,6 +25,7 @@ class Predicate
 
   class << self
     include Factory
+    include Sugar
 
     def coerce(arg)
       case arg

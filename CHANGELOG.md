@@ -13,7 +13,7 @@
 * Add `Predicate.in(:x, Range)` as a shortcut over comparison
   operators.
 
-* Add `Predicate.empty`.
+* Add `Predicate.empty`, `.has_size`, `.min_size`, `.max_size`.
 
 * Enhance `Predicate.intersect` to work fine between two variables.
   WARN: This changes the internal AST representation of set

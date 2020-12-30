@@ -135,13 +135,13 @@ Predicate.gte(:x, :y)                # x >= y
 Shortcuts (translated immediately, no trace kept in AST) :
 
 ```ruby
-Predicate.eq(x: 2, y: 6)             # Shortcut for eq(:x, 2) & eq(:y, 6)
-Predicate.eq(x: 2, y: :z)            # Shortcut for eq(:x, 2) & eq(:y, :z)
+Predicate.eq(x: 2, y: 6)             # eq(:x, 2) & eq(:y, 6)
+Predicate.eq(x: 2, y: :z)            # eq(:x, 2) & eq(:y, :z)
 # ... and so on for neq, lt, lte, gt, gte
 
-Predicate.between(:x, l, h)          # Shortcut for gte(:x, l) & lte(:x, h), for all l and h
-Predicate.in(:x, 1..10)              # Shortcut for gte(:x, 1) & lte(:x, 10)
-Predicate.in(:x, 1...10)             # Shortcut for gte(:x, 1) & lt(:x, 10)
+Predicate.between(:x, l, h)          # gte(:x, l) & lte(:x, h), for all l and h
+Predicate.in(:x, 1..10)              # gte(:x, 1) & lte(:x, 10)
+Predicate.in(:x, 1...10)             # gte(:x, 1) & lt(:x, 10)
 ```
 
 ### Set-based operators
@@ -169,6 +169,13 @@ Predicate.empty(:x)                  # ruby's empty?
 Predicate.has_size(:x, 1..10)        # ruby's size and ===
 Predicate.has_size(:x, 10)           # Same as has_size(:x, 10..10)
 Predicate.has_size(:x, :y)           # y must resolve to a Range or Integer
+```
+
+Shortcuts (translated immediately, no trace kept in AST) :
+
+```ruby
+Predicate.min_size(:x, 10)           # has_size(:x, 10..)
+Predicate.max_size(:x, 10)           # has_size(:x, 0..10)
 ```
 
 ### Native expressions

@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require "rspec"
 require 'predicate'
+require_relative 'shared/a_predicate'
 
 module Helpers
 
