@@ -1,8 +1,9 @@
 class Predicate
-  class Currying
+  class Dsl
 
-    def initialize(var)
+    def initialize(var, allow_currying = true)
       @var = var
+      @allow_currying = allow_currying
     end
 
   public # No injection
@@ -42,8 +43,7 @@ class Predicate
       #jeny(predicate) :${op_name},
     ].each do |name|
       define_method(name) do |*args|
-        m = Factory.instance_method(name)
-        args.unshift(@var) if m.arity == 1+args.length
+        args = apply_curry(name, args, Factory)
         Predicate.send(name, *args)
       end
     end
@@ -54,9 +54,8 @@ class Predicate
       :match
     ].each do |name|
       define_method(name) do |*args|
-        m = Factory.instance_method(name)
         args << {} unless args.last.is_a?(Hash)
-        args.unshift(@var) if m.arity == 1+args.length
+        args = apply_curry(name, args, Factory)
         Predicate.send(name, *args)
       end
     end
@@ -70,11 +69,21 @@ class Predicate
       #jeny(sugar) :${op_name},
     ].each do |name|
       define_method(name) do |*args|
-        m = Sugar.instance_method(name)
-        args.unshift(@var) if m.arity == 1+args.length
+        args = apply_curry(name, args, Sugar)
         Predicate.send(name, *args)
       end
     end
 
-  end # class Currying
+  private
+
+    def apply_curry(name, args, on)
+      m = on.instance_method(name)
+      if @allow_currying and m.arity == 1+args.length
+        [@var] + args
+      else
+        args
+      end
+    end
+
+  end # class Dsl
 end # class Predicate

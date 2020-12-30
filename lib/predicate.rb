@@ -5,7 +5,7 @@ require_relative 'predicate/factory'
 require_relative 'predicate/sugar'
 require_relative 'predicate/grammar'
 require_relative 'predicate/processors'
-require_relative 'predicate/currying'
+require_relative 'predicate/dsl'
 class Predicate
 
   class Error < StandardError; end
@@ -41,12 +41,12 @@ class Predicate
     end
     alias :parse :coerce
 
-    def dsl(&bl)
-      Predicate.instance_eval(&bl)
+    def dsl(var = var(".", :dig), &bl)
+      Predicate::Dsl.new(var, false).instance_eval(&bl)
     end
 
     def currying(var = var(".", :dig), &bl)
-      Predicate::Currying.new(var).instance_eval(&bl)
+      Predicate::Dsl.new(var, true).instance_eval(&bl)
     end
 
   private
