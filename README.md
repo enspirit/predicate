@@ -25,8 +25,18 @@ p = Predicate.dsl{
 }
 ```
 
+The `dsl` block also have all predicates in camelCase, negated, and full text
+variants:
+
+```ruby
+p = Predicate.dsl{
+  notEq(:x, "foo") & hasSize(:y, 1..10) & lessThan(:z, 3)
+}
+```
+
 If you have complex expressions where many members apply to the same variable,
-a `currying` dsl is provided.
+a `currying` dsl extension is provided. It allows using all `dsl` methods
+while omitting their first argument.
 
 ```ruby
 # Instead of this

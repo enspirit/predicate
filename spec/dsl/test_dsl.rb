@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 class Predicate
-  describe "The DSL" do
+  describe Dsl do
     subject{
-      Predicate.currying(:x, &bl)
+      Predicate::Dsl.new(:x).instance_eval(&bl)
     }
 
     context 'when used on a comparison op' do
@@ -93,5 +93,86 @@ class Predicate
         it { expect(subject).to eq(Predicate.match(:y, /a-z/, {case_sensitive: false}))}
       end
     end
+
+    context 'when used on size' do
+      context 'curried' do
+        let(:bl){
+          Proc.new{ size(1..10) }
+        }
+
+        it { expect(subject).to eq(Predicate.has_size(:x, 1..10))}
+      end
+
+      context 'curried with Integer' do
+        let(:bl){
+          Proc.new{ size(10) }
+        }
+
+        it { expect(subject).to eq(Predicate.has_size(:x, 10))}
+      end
+
+      context 'not curried' do
+        let(:bl){
+          Proc.new{ size(:y, 1..10) }
+        }
+
+        it { expect(subject).to eq(Predicate.has_size(:y, 1..10))}
+      end
+
+      context 'not curried with Integer' do
+        let(:bl){
+          Proc.new{ size(:y, 10) }
+        }
+
+        it { expect(subject).to eq(Predicate.has_size(:y, 10))}
+      end
+    end
+
+    context 'when used with some camelCase' do
+      context 'curried' do
+        let(:bl){
+          Proc.new{ hasSize(1..10) }
+        }
+
+        it { expect(subject).to eq(Predicate.has_size(:x, 1..10))}
+      end
+    end
+
+    context 'when used with full text versions and their negation' do
+      context 'less_than' do
+        let(:bl){
+          Proc.new{ less_than(:x, 1) }
+        }
+
+        it { expect(subject).to eq(Predicate.lt(:x, 1))}
+      end
+
+      context 'lessThan' do
+        let(:bl){
+          Proc.new{ lessThan(:x, 1) }
+        }
+
+        it { expect(subject).to eq(Predicate.lt(:x, 1))}
+      end
+
+      context 'notLessThan' do
+        let(:bl){
+          Proc.new{ notLessThan(:x, 1) }
+        }
+
+        it { expect(subject).to eq(!Predicate.lt(:x, 1))}
+      end
+    end
+
+    context 'when used with a negated form' do
+      context 'curried' do
+        let(:bl){
+          Proc.new{ notSize(1..10) }
+        }
+
+        it { expect(subject).to eq(!Predicate.has_size(:x, 1..10))}
+      end
+    end
+
   end
 end
