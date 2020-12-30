@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe 'Predicate in a curried form' do
 
   context 'with a variable name' do

@@ -1,6 +1,7 @@
 require_relative 'a_predicate_ast_node'
 shared_examples_for "a comparison factory method" do
   include Predicate::Factory
+  include Predicate::Sugar
 
   context 'with two operands' do
     subject{ self.send(method, true, true) }

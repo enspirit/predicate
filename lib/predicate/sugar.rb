@@ -1,6 +1,13 @@
 class Predicate
   module Sugar
 
+    [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
+      define_method(m) do |left, right=nil|
+        return comp(m, left) if TupleLike===left && right.nil?
+        super(left, right)
+      end
+    end
+
     def min_size(left, right)
       unless right.is_a?(Integer)
         raise ArgumentError, "Integer expected, got #{right}"

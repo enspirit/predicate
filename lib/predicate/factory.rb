@@ -102,8 +102,7 @@ class Predicate
     # Factors =, !=, <, <=, >, >= predicates between
     # a variable and either a literal or another variable.
     [ :eq, :neq, :lt, :lte, :gt, :gte ].each do |m|
-      define_method(m) do |left, right=nil|
-        return comp(m, left) if TupleLike===left && right.nil?
+      define_method(m) do |left, right|
         _factor_predicate([m, sexpr(left), sexpr(right)])
       end
     end

@@ -40,7 +40,7 @@ class Predicate
 
     context 'on a factored predicate' do
       let(:predicate){
-        Predicate.new(Factory.lte(:x => 2))
+        Predicate.lte(:x => 2)
       }
 
       describe "on x == 2" do
@@ -390,7 +390,7 @@ class Predicate
 
     context 'has a call alias' do
       let(:predicate){
-        Predicate.new(Factory.gte(:x => 0))
+        Predicate.gte(:x => 0)
       }
 
       let(:scope){ { x: 2 } }
