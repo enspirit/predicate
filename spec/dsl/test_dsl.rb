@@ -174,5 +174,31 @@ class Predicate
       end
     end
 
+    context 'when used on null' do
+      context 'curried' do
+        let(:bl){
+          Proc.new{ null() }
+        }
+
+        it { expect(subject).to eq(Predicate.eq(:x, nil))}
+      end
+
+      context 'negated' do
+        let(:bl){
+          Proc.new{ notNull() }
+        }
+
+        it { expect(subject).to eq(Predicate.neq(:x, nil))}
+      end
+
+      context 'not curried' do
+        let(:bl){
+          Proc.new{ null(:y) }
+        }
+
+        it { expect(subject).to eq(Predicate.eq(:y, nil))}
+      end
+    end
+
   end
 end

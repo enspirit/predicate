@@ -152,6 +152,9 @@ Predicate.eq(x: 2, y: :z)            # eq(:x, 2) & eq(:y, :z)
 Predicate.between(:x, l, h)          # gte(:x, l) & lte(:x, h), for all l and h
 Predicate.in(:x, 1..10)              # gte(:x, 1) & lte(:x, 10)
 Predicate.in(:x, 1...10)             # gte(:x, 1) & lt(:x, 10)
+#
+
+Predicate.is_null(:x)                # eq(:x, nil)
 ```
 
 ### Set-based operators

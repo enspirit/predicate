@@ -20,10 +20,20 @@ describe "Predicate.max_size" do
   end
 end
 
+describe "Predicate.is_null" do
+  subject{ Predicate.is_null(:x) }
+
+  it 'works as expected' do
+    expect(subject).to eq(Predicate.eq(:x, nil))
+    expect(subject.call(x: nil)).to eq(true)
+    expect(subject.call(x: "01234567891")).to eq(false)
+  end
+end
+
 #jeny(sugar) describe "Predicate.${op_name}" do
 #jeny(sugar)   subject{ Predicate.${op_name}(TODO) }
 #jeny(sugar)
-#jeny(sugar)   it {
+#jeny(sugar)   it 'works as expected' do
 #jeny(sugar)     expect(subject).to eq(TODO)
-#jeny(sugar)   }
+#jeny(sugar)   end
 #jeny(sugar) end

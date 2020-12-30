@@ -31,6 +31,10 @@ class Predicate
       has_size(left, 0..right)
     end
 
+    def is_null(operand)
+      eq(operand, nil)
+    end
+
     #jeny(sugar) def ${op_name}(*args)
     #jeny(sugar)   TODO
     #jeny(sugar) end

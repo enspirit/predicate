@@ -66,6 +66,7 @@ class Predicate
       :between,
       :min_size,
       :max_size,
+      :is_null,
       #jeny(sugar) :${op_name},
     ].each do |name|
       define_method(name) do |*args|
@@ -77,6 +78,7 @@ class Predicate
   public # Extra names
 
     {
+      :null => :is_null,
       :size => :has_size,
       :equal => :eq,
       :less_than => :lt,
@@ -93,7 +95,9 @@ class Predicate
 
     def method_missing(n, *args, &bl)
       snaked, to_negate = missing_method_pair(n)
-      if self.respond_to?(snaked)
+      if snaked == n.to_s && !to_negate
+        super
+      elsif self.respond_to?(snaked)
         got = __send__(snaked.to_sym, *args, &bl)
         to_negate ? !got : got
       else
@@ -103,6 +107,7 @@ class Predicate
 
     def respond_to_missing?(n, include_private = false)
       snaked, to_negate = missing_method_pair(n)
+      return super if snaked == n.to_s
       self.respond_to?(snaked)
     end
 

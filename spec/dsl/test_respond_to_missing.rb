@@ -22,5 +22,14 @@ class Predicate
         expect(subject.send(:respond_to_missing?, m)).to eql(true)
       end
     end
+
+    it 'respond false otherwise' do
+      [
+        :nosuchone,
+        :notsuchone
+      ].each do |m|
+        expect(subject.send(:respond_to_missing?, m)).to eql(false)
+      end
+    end
   end
 end
