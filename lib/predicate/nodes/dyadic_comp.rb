@@ -2,9 +2,7 @@ class Predicate
   module DyadicComp
     include Expr
 
-    def priority
-      50
-    end
+    def priority; 50; end
 
     def !
       Factory.send(OP_NEGATIONS[first], self[1], self[2])

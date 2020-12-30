@@ -18,13 +18,8 @@ class Predicate
       other
     end
 
-    def dyadic_priority
-      1000
-    end
-
-    def priority
-      100
-    end
+    def dyadic_priority; 1000; end
+    def priority; 100; end
 
     def free_variables
       @free_variables ||= []

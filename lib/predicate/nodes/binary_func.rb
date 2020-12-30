@@ -2,13 +2,7 @@ class Predicate
   module BinaryFunc
     include Expr
 
-    def priority
-      80
-    end
-
-    def dyadic_priority
-      800
-    end
+    def priority; 80; end
 
     def left
       self[1]

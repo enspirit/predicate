@@ -2,9 +2,7 @@ class Predicate
   module Native
     include Expr
 
-    def priority
-      90
-    end
+    def priority; 90; end
 
     def proc
       self[1]

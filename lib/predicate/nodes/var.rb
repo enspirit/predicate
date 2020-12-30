@@ -2,9 +2,7 @@ class Predicate
   module Var
     include Expr
 
-    def priority
-      100
-    end
+    def priority; 100; end
 
     def formaldef
       self[1]

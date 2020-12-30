@@ -2,9 +2,7 @@ class Predicate
   module SetOp
     include Expr
 
-    def priority
-      80
-    end
+    def priority; 80; end
 
     def left
       self[1]

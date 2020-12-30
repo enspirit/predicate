@@ -2,9 +2,7 @@ class Predicate
   module QualifiedIdentifier
     include Expr
 
-    def priority
-      100
-    end
+    def priority; 100; end
 
     def qualifier
       self[1]

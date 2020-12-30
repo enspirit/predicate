@@ -40,9 +40,7 @@ class Predicate
       end
     end
 
-    def dyadic_priority
-      900
-    end
+    def dyadic_priority; 900; end
 
     def evaluate(tuple)
       left.evaluate(tuple) == right.evaluate(tuple)

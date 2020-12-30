@@ -2,9 +2,7 @@ class Predicate
   module Identifier
     include Expr
 
-    def priority
-      100
-    end
+    def priority; 100; end
 
     def name
       self[1]

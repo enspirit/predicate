@@ -2,9 +2,7 @@ class Predicate
   module In
     include Expr
 
-    def priority
-      80
-    end
+    def priority; 80; end
 
     def left
       self[1]
@@ -61,9 +59,7 @@ class Predicate
       end
     end
 
-    def dyadic_priority
-      800
-    end
+    def dyadic_priority; 800; end
 
     def evaluate(tuple)
       values = right.evaluate(tuple)

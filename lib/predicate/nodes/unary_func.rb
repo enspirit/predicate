@@ -2,13 +2,7 @@ class Predicate
   module UnaryFunc
     include Expr
 
-    def priority
-      80
-    end
-
-    def dyadic_priority
-      800
-    end
+    def priority; 80; end
 
     def operand
       self[1]

@@ -35,9 +35,7 @@ class Predicate
       sexpr([:not, self])
     end
 
-    def dyadic_priority
-      0
-    end
+    def dyadic_priority; 0; end
 
     def &(other)
       return other if other.contradiction?

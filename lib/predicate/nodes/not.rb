@@ -6,9 +6,7 @@ class Predicate
       :'!'
     end
 
-    def priority
-      90
-    end
+    def priority; 90; end
 
     def !
       last
