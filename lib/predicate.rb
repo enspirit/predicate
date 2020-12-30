@@ -7,8 +7,10 @@ require_relative 'predicate/processors'
 require_relative 'predicate/currying'
 class Predicate
 
-  class NotSupportedError < StandardError; end
-  class UnboundError < StandardError; end
+  class Error < StandardError; end
+  class NotSupportedError < Error; end
+  class UnboundError < Error; end
+  class TypeError < Error; end
 
   TupleLike = ->(t){ t.is_a?(Hash) }
 
