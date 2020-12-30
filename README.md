@@ -1,5 +1,7 @@
 # Predicate
 
+![](https://travis-ci.com/enspirit/predicate.svg?branch=master)
+
 Boolean (truth-value) expressions that can be evaluated, manipulated,
 optimized, translated to code, etc.
 
