@@ -21,7 +21,7 @@ rules:
     - match
     - native
     - empty
-    #jeny(predicate) - ${name}
+    #jeny(predicate) - ${op_name}
   tautology:
     - [ true ]
   contradiction:
@@ -62,7 +62,7 @@ rules:
     - [ term, term, options ]
   empty:
     - [ term ]
-#jeny(predicate)   ${name}:
+#jeny(predicate)   ${op_name}:
 #jeny(predicate)     - [ TODO ]
   term:
     - varref

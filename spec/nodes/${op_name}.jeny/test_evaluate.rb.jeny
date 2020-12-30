@@ -1,9 +1,9 @@
 #jenyctx predicate
 require 'spec_helper'
 class Predicate
-  describe ${Name}, "evaluate" do
+  describe ${OpName}, "evaluate" do
 
-    let(:predicate){ Factory.${name}(TODO) }
+    let(:predicate){ Factory.${op_name}(TODO) }
 
     subject{ predicate.evaluate(context) }
 

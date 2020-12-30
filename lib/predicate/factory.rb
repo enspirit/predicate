@@ -156,9 +156,9 @@ class Predicate
     end
 
     #jeny(predicate) # TODO
-    #jeny(predicate) def ${name}(*args)
+    #jeny(predicate) def ${op_name}(*args)
     #jeny(predicate)   args = args.map{|arg| sexpr(arg) }
-    #jeny(predicate)   _factor_predicate([:${name}] + args)
+    #jeny(predicate)   _factor_predicate([:${op_name}] + args)
     #jeny(predicate) end
 
     # Factors a predicate for a ruby Proc that returns

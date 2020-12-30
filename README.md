@@ -387,6 +387,13 @@ releases).
 
 Please use github issues and pull requests, and favor the latter if possible.
 
+This repository uses the help of [jeny](https://github.com/enspirit/jeny) to
+generate code snippets when adding new predicates.
+
+```
+bundle exec jeny s predicate -d op_name:my_predicate -d arity:unary
+```
+
 ## Licence
 
 This software is distributed by Enspirit SRL under a MIT Licence. Please

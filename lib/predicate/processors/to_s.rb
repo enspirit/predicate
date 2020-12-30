@@ -78,11 +78,11 @@ class Predicate
     end
 
     def on_empty(sexpr)
-      "empty(#{commalist(sexpr.body)})"
+      "EMPTY(#{commalist(sexpr.body)})"
     end
 
-    #jeny(predicate) def on_${name}(sexpr)
-    #jeny(predicate)   "${name}(#{commalist(sexpr.body)})"
+    #jeny(predicate) def on_${op_name}(sexpr)
+    #jeny(predicate)   "${OP_NAME}(#{commalist(sexpr.body)})"
     #jeny(predicate) end
 
     def on_native(sexpr)

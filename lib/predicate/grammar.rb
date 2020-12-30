@@ -10,7 +10,7 @@ class Predicate
       Expr
     end
 
-  end
+  end # module Grammar
 end # class Predicate
 require_relative 'nodes/expr'
 require_relative 'nodes/dyadic_comp'
@@ -41,4 +41,4 @@ require_relative 'nodes/unary_func'
 require_relative 'nodes/binary_func'
 require_relative 'nodes/match'
 require_relative 'nodes/empty'
-#jeny(predicate) require_relative 'nodes/${name}'
+#jeny(predicate) require_relative 'nodes/${op_name}'

@@ -31,7 +31,7 @@ class Predicate
       #
       :match,
       :empty,
-      #jeny(predicate) :${name},
+      #jeny(predicate) :${op_name},
     ].each do |name|
       define_method(name) do |*args|
         Predicate.send(name, *args.unshift(@var))

@@ -1,6 +1,6 @@
 #jenyctx predicate
 class Predicate
-  module ${Name}
+  module ${OpName}
     include ${Arity}Func
 
     def evaluate(tuple)

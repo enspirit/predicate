@@ -191,8 +191,8 @@ describe "Predicate.empty" do
   it_should_behave_like "a predicate"
 end
 
-#jeny(predicate) describe "Predicate.${name}" do
-#jeny(predicate)   subject{ Predicate.${name}(TODO) }
+#jeny(predicate) describe "Predicate.${op_name}" do
+#jeny(predicate)   subject{ Predicate.${op_name}(TODO) }
 #jeny(predicate)
 #jeny(predicate)   it_should_behave_like "a predicate"
 #jeny(predicate) end
