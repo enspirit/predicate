@@ -160,6 +160,14 @@ class Predicate
 
   public # Low-level
 
+    # Factors a predicate from a mapping between variables
+    # and values. This typically generates a AND(EQ)
+    # predicate, but a value can be an Array (IN) or a
+    # Regexp (MATCH).
+    def h(h)
+      from_hash(h, :eq)
+    end
+
     # Factors a predicate for a ruby Proc that returns
     # truth-value for a single argument.
     def native(arg)
@@ -182,10 +190,10 @@ class Predicate
         tautology
       else
         terms = h.to_a.map{|(k,v)|
-          if v.is_a?(Array)
-            [:in, sexpr(k), sexpr(v)]
-          else
-            [op, sexpr(k), sexpr(v)]
+          case v
+          when Array  then [:in, sexpr(k), sexpr(v)]
+          when Regexp then [:match, sexpr(k), sexpr(v) ]
+          else             [op, sexpr(k), sexpr(v)]
           end
         }
         terms = terms.size == 1 ? terms.first : terms.unshift(:and)

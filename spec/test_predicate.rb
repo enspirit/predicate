@@ -18,6 +18,16 @@ describe "Predicate.comp" do
   it_should_behave_like "a predicate"
 end
 
+describe "Predicate.h" do
+  subject{ Predicate.h(:x => 2) }
+
+  it_should_behave_like "a predicate"
+
+  it 'should be a eq on x' do
+    expect(subject).to eql(Predicate.eq(:x => 2))
+  end
+end
+
 describe "Predicate.in, with a list" do
   subject{ Predicate.in(:x, [2, 3]) }
 
