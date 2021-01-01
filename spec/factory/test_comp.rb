@@ -10,7 +10,15 @@ class Predicate
       it{ should eq(Factory.tautology) }
     end
 
-    context "when the hash is singleton" do
+    context "when the hash is a singelton" do
+      let(:h){ {:x => 12} }
+
+      it_should_behave_like "a predicate AST node"
+      it{ should be_a(Eq) }
+      it{ should eq([:eq, [:identifier, :x], [:literal, 12]]) }
+    end
+
+    context "when the hash is not singleton" do
       let(:h){ {:x => 12, :y => :z} }
       let(:expected){
         [:and,
@@ -23,12 +31,27 @@ class Predicate
       it{ should eq(expected) }
     end
 
-    context "when the hash is not singelton" do
-      let(:h){ {:x => 12} }
+    context "when the value is a Regexp" do
+      let(:rx){ /[a-z]+/ }
+      let(:h){ {:x => /[a-z]+/} }
 
       it_should_behave_like "a predicate AST node"
-      it{ should be_a(Eq) }
-      it{ should eq([:eq, [:identifier, :x], [:literal, 12]]) }
+      it{ should be_a(Match) }
+      it{ should eq([:match, [:identifier, :x], [:literal, rx]]) }
+    end
+
+    context "when the hash mixes value types" do
+      let(:rx){ /[a-z]+/ }
+      let(:h){ {:x => 12, :y => rx} }
+      let(:expected){
+        [:and,
+          [:eq, [:identifier, :x], [:literal, 12]],
+          [:match, [:identifier, :y], [:literal, rx]]]
+      }
+
+      it_should_behave_like "a predicate AST node"
+      it{ should be_a(And) }
+      it{ should eq(expected) }
     end
 
   end
