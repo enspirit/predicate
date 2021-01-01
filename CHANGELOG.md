@@ -1,3 +1,17 @@
+# 2.6.0
+
+* Add `Predicate.h` that takes a Hash mapping variable names to
+  values. This generates a AND-predicate with one term for each
+  pair. Keys must map to variables (hence, typically Symbol).
+  An Array value yields an IN-predicate. A Regexp value yields
+  a MATCH. Other literals yield EQ predicates.
+
+  Examples:
+
+    Predicate.h(:x => 2, ...)         # eq(:x, 2) & ...
+    Predicate.h(:x => [2,3], ...)     # in(:x, [2,2]) & ...
+    Predicate.h(:x => /a-z/, ...)     # match(:x, /a-z/) & ...
+
 # 2.5.0 - 2020-12-30
 
 * Add `Predicate.dsl` for building complex expressions without having
