@@ -3,6 +3,11 @@
 * BREAKING: removed support for ruby < 2.7 and upgraded sexpr
   to 1.1.x
 
+* Added Predicate#assert!, with the help of minitest.
+
+  Implementation is fuly functional, yet error messages will
+  be improved in the future by a better usage of minitest itself.
+
 # 2.7.1 - 2022-04-21
 
 * Add shadow support for Exists tree nodes, that are used by

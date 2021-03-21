@@ -46,6 +46,12 @@ class Predicate
       left.evaluate(tuple) == right.evaluate(tuple)
     end
 
+    def assert!(tuple, asserter = Asserter.new)
+      l, r = left.evaluate(tuple), right.evaluate(tuple)
+      asserter.assert_equal(l, r)
+      l
+    end
+
     def to_hash
       if left.identifier? && right.literal? && !right.has_placeholder?
         { left.name => right.value }

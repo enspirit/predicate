@@ -6,6 +6,7 @@ require_relative 'predicate/sugar'
 require_relative 'predicate/grammar'
 require_relative 'predicate/processors'
 require_relative 'predicate/dsl'
+require_relative 'predicate/asserter'
 class Predicate
 
   class Error < StandardError; end
@@ -123,6 +124,10 @@ class Predicate
 
   def call(tuple)
     expr.evaluate(tuple)
+  end
+
+  def assert!(tuple = {})
+    expr.assert!(tuple)
   end
 
   # Splits this predicate, say P, as too predicates P1 & P2
