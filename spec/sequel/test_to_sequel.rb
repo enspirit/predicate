@@ -140,6 +140,15 @@ class Predicate
       end
     end
 
+    context 'nary and' do
+      let(:predicate) { Predicate.eq(:name, "Bob") & Predicate.eq(:price, 10.0) & Predicate.eq(:city, "London") }
+
+      it 'works as expected' do
+        puts predicate.sexpr.inspect
+        expect(subject).to eql("SELECT * FROM `items` WHERE ((`name` = 'Bob') AND (`price` = 10.0) AND (`city` = 'London'))")
+      end
+    end
+
     context 'or' do
       let(:predicate) { Predicate.eq(:name, "Bob") | Predicate.lt(:price, 10.0) }
 
