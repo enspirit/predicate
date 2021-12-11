@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/enspirit/predicate'
   s.license     = 'MIT'
 
-  s.add_runtime_dependency "sexpr", "~> 0.6.0"
+  s.add_runtime_dependency "sexpr", "~> 1.0"
 
   s.add_development_dependency "rake", "~> 13"
   s.add_development_dependency "rspec", "~> 3"

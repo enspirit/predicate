@@ -1,5 +1,7 @@
 # 2.6.0
 
+* Upgraded `sexpr` to 1.0
+
 * Add `Predicate.h` that takes a Hash mapping variable names to
   values. This generates a AND-predicate with one term for each
   pair. Keys must map to variables (hence, typically Symbol).
