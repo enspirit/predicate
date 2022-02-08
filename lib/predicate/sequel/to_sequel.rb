@@ -106,6 +106,7 @@ class Predicate
 
       def on_opaque(sexpr)
         return [sexpr.last] if sexpr.last.respond_to?(:sql_literal)
+        return [sexpr.last] if sexpr.last.respond_to?(:sql)
         raise Error, "Unable to compile #{sexpr} to Sequel"
       end
 

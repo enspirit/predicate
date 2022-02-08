@@ -51,8 +51,12 @@ class Predicate
 
   private
 
-    def _factor_predicate(arg)
-      Predicate.new Grammar.sexpr(arg)
+    def _factor_predicate(arg, *mods)
+      expr = Grammar.sexpr(arg)
+      mods.each do |mod|
+        expr.extend(mod)
+      end
+      Predicate.new(expr)
     end
 
   end

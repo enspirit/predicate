@@ -4,6 +4,10 @@ shared_examples_for "a predicate" do
   let(:x){ 12 }
   let(:y){ 13 }
 
+  it 'is a Predicate' do
+    subject.should be_a(Predicate)
+  end
+
   it 'can be negated easily' do
     (!subject).should be_a(Predicate)
   end

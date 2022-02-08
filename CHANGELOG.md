@@ -1,3 +1,9 @@
+# 2.7.0 - 2022-02-10
+
+* Add (experimental) support for translation of `empty` and
+  `intersect` on arrays to usage of PostgreSQL's `pg_array`
+  operators (`overlaps` in particular).
+
 # 2.6.0 - 2021-12-11
 
 * Upgraded `sexpr` to 1.0

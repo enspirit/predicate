@@ -274,7 +274,7 @@ given list.
 
 ```ruby
 p = Predicate.eq(x: 2, y: 4)  # x = 2 & y = 4
-p1, p2 = p.and_split([:x])    # p1 is x = 2 ; p2 is y = 4 
+p1, p2 = p.and_split([:x])    # p1 is x = 2 ; p2 is y = 4
 ```
 
 Observe that `and_split` is always possible but may degenerate to an
@@ -302,6 +302,38 @@ split = p.attr_split
 #   :x => Predicate.eq(:x, 2),
 #   :y => Predicate.eq(:y, 4)
 # }
+```
+
+## Working with PostgreSQL
+
+(experimental) Predicate supports compiling certain high-level expressions
+to PostgreSQL native operators. It works in an direct or indirect way:
+
+```
+require 'predicate'
+require 'predicate/postgres'
+
+# In direct way, you simply create the predicates using PostgreSQL's own
+# operators
+p = Predicate.pg_array_overlaps(:x, ['foo', 'bar'])
+p.to_sequel
+
+# In indirect way, you use high-level predicates and convert them to
+# PostgreSQL later using `to_postgres`
+p = Predicate.interect(:x, ['foo', 'bar'])
+p = p.to_postgres
+p.to_sequel
+```
+
+Only a few array operators & translations exist, and only on `varchar[]`
+types. Additional support will be added later. The following
+translations are implemented (and methods on the right directly available
+on the `Predicate` class):
+
+```
+          -> pg_array_literal
+intersect -> pg_array_overlaps
+empty     -> pg_array_empty
 ```
 
 ## Working with abstract variables

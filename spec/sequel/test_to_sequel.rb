@@ -1,19 +1,11 @@
 require 'spec_helper'
-require 'sequel'
-require 'sqlite3'
-require 'predicate/sequel'
 class Predicate
   describe ToSequel do
 
     DB = Sequel.sqlite
 
     before(:all) do
-      DB.create_table :items do
-        primary_key :id
-        String :name
-        String :address
-        Float :price
-      end
+      create_items_database(DB)
       items = DB[:items]
     end
 
@@ -229,6 +221,5 @@ class Predicate
         expect { subject }.to raise_error(NotSupportedError)
       end
     end
-
   end
 end

@@ -201,7 +201,7 @@ class Predicate
       end
     end
 
-  protected
+  public
 
     def sexpr(expr)
       case expr
@@ -217,8 +217,12 @@ class Predicate
       end
     end
 
-    def _factor_predicate(arg)
-      sexpr(arg)
+    def _factor_predicate(arg, *mods)
+      expr = sexpr(arg)
+      mods.each do |mod|
+        expr.extend(mod)
+      end
+      expr
     end
 
     extend(self)
