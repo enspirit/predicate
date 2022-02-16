@@ -14,6 +14,12 @@ class Predicate
       it{ should be_a(Contradiction) }
     end
 
+    context 'with an and leading to a contradiction' do
+      let(:right){ Factory.eq(:y, 4) & Factory.eq(:x, 3) }
+
+      it{ should be_a(Contradiction) }
+    end
+
     context 'with an IN on same variable and literal' do
       let(:right){ Factory.in(:x, [2,4]) }
 

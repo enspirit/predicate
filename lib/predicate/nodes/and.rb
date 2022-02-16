@@ -7,6 +7,8 @@ class Predicate
     end
 
     def &(other)
+      return contradiction if in_contradiction?(self, other)
+
       case other
       when Tautology     then self
       when Contradiction then other

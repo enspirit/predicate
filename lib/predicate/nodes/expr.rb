@@ -31,6 +31,12 @@ class Predicate
       sexpr_type == :identifier
     end
 
+    def in_contradiction?(me, other)
+      mine = me.constants
+      yours = other.constants
+      (mine.keys & yours.keys).any?{|k| mine[k] != yours[k] }
+    end
+
     def !
       sexpr([:not, self])
     end
@@ -41,6 +47,8 @@ class Predicate
       return other if other.contradiction?
       return self  if other.tautology?
       return other & self if other.dyadic_priority > self.dyadic_priority
+      return contradiction if in_contradiction?(self, other)
+
       sexpr([:and, self, other])
     end
 

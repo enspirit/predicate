@@ -88,6 +88,7 @@ class Predicate
   def &(other)
     return self  if other.tautology? or other==self
     return other if tautology?
+
     Predicate.new(expr & other.expr)
   end
 
