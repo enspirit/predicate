@@ -15,6 +15,7 @@ rules:
     - gt
     - gte
     - in
+    - exists
     - intersect
     - subset
     - superset
@@ -72,6 +73,7 @@ rules:
     - literal
     - placeholder
     - opaque
+    - exists
   varref:
     - qualified_identifier
     - identifier
@@ -83,6 +85,8 @@ rules:
   placeholder:
     - "::Predicate::Placeholder"
   opaque:
+    - "::Object"
+  exists:
     - "::Object"
   handler:
     - "::Object"
