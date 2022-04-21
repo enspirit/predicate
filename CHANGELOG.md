@@ -1,4 +1,4 @@
-# 2.7.1
+# 2.7.1 - 2022-04-21
 
 * Add shadow support for Exists tree nodes, that are used by
   Bmg for some `restrict -> WHERE` translations.
