@@ -1,3 +1,8 @@
+# 2.8.0
+
+* BREAKING: removed support for ruby < 2.7 and upgraded sexpr
+  to 1.1.x
+
 # 2.7.1 - 2022-04-21
 
 * Add shadow support for Exists tree nodes, that are used by
