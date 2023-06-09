@@ -1,4 +1,4 @@
-# 2.8.0
+# 2.8.0 - 2023-06-09
 
 * BREAKING: removed support for ruby < 2.7 and upgraded sexpr
   to 1.1.x
