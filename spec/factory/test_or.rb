@@ -6,8 +6,12 @@ class Predicate
     subject{ self.or(true, true) }
 
     it_should_behave_like "a predicate AST node"
-    it{ should be_a(Or) }
-    it{ should eql([:or, tautology, tautology]) }
+    it {
+      expect(subject).to be_a(Or)
+    }
+    it {
+      expect(subject).to eql([:or, tautology, tautology])
+    }
 
   end
 end

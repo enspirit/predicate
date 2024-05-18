@@ -12,13 +12,17 @@ class Predicate
       context 'when fully covered' do
         let(:list){ [:x, :y] }
 
-        it{ should eq([predicate, tautology]) }
+        it {
+          expect(subject).to eq([predicate, tautology])
+        }
       end
 
       context 'when fully disjoint' do
         let(:list){ [:z] }
 
-        it{ should eq([tautology, predicate]) }
+        it {
+          expect(subject).to eq([tautology, predicate])
+        }
       end
 
     end

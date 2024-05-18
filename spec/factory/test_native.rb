@@ -10,9 +10,13 @@ class Predicate
 
       it_should_behave_like "a predicate AST node"
 
-      it{ should be_a(Native) }
+      it {
+        expect(subject).to be_a(Native)
+      }
 
-      it{ should eql([:native, proc]) }
+      it {
+        expect(subject).to eql([:native, proc])
+      }
     end
 
   end

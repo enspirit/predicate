@@ -6,8 +6,12 @@ class Predicate
     subject{ identifier(:name) }
 
     it_should_behave_like "a predicate AST node"
-    it{ should be_a(Identifier) }
-    it{ should eql([:identifier, :name]) }
+    it {
+      expect(subject).to be_a(Identifier)
+    }
+    it {
+      expect(subject).to eql([:identifier, :name])
+    }
 
   end
 end

@@ -6,7 +6,9 @@ class Predicate
 
     subject{ expr.qualifier }
 
-    it{ should eq(:t) }
+    it {
+      expect(subject).to eq(:t)
+    }
 
   end
 end

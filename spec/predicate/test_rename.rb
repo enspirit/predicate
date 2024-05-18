@@ -12,12 +12,14 @@ class Predicate
       context 'on a full AST predicate' do
         let(:predicate){ p.in(:x, [2]) & p.eq(:y, 3) }
 
-        it{ should eq(p.in(:z, [2]) & p.eq(:y, 3)) }
+        it {
+          expect(subject).to eq(p.in(:z, [2]) & p.eq(:y, 3))
+        }
 
         specify "it should tag expressions correctly" do
-          subject.expr.should be_a(Sexpr)
-          subject.expr.should be_a(Expr)
-          subject.expr.should be_a(And)
+          expect(subject.expr).to be_a(Sexpr)
+          expect(subject.expr).to be_a(Expr)
+          expect(subject.expr).to be_a(And)
         end
       end
 
@@ -25,9 +27,9 @@ class Predicate
         let(:predicate){ p.in(:x, [2]) & p.native(lambda{}) }
 
         it 'raises an error' do
-          lambda{
+          expect{
             subject
-          }.should raise_error(NotSupportedError)
+          }.to raise_error(NotSupportedError)
         end
       end
 
@@ -35,7 +37,7 @@ class Predicate
         let(:predicate){ p.eq(Factory.qualified_identifier(:t, :x), 3) }
 
         it 'renames correctly' do
-          subject.should eq(p.eq(Factory.qualified_identifier(:t, :z), 3))
+          expect(subject).to eq(p.eq(Factory.qualified_identifier(:t, :z), 3))
         end
       end
     end
@@ -46,13 +48,17 @@ class Predicate
       context "on an identifier" do
         let(:predicate){ p.eq(:x, 2) }
 
-        it{ should eq(p.eq(:y, 2)) }
+        it {
+          expect(subject).to eq(p.eq(:y, 2))
+        }
       end
 
       context "on a qualifier identifier" do
         let(:predicate){ p.eq(Factory.qualified_identifier(:t, :x), 2) }
 
-        it{ should eq(p.eq(:y, 2)) }
+        it {
+          expect(subject).to eq(p.eq(:y, 2))
+        }
       end
     end
 
@@ -62,13 +68,17 @@ class Predicate
       context 'on an identifier' do
         let(:predicate){ p.eq(:x, 2) }
 
-        it{ should eq(p.eq(Factory.qualified_identifier(:t, :y), 2)) }
+        it {
+          expect(subject).to eq(p.eq(Factory.qualified_identifier(:t, :y), 2))
+        }
       end
 
       context 'on a qualified' do
         let(:predicate){ p.eq(Factory.qualified_identifier(:t, :x), 2) }
 
-        it{ should eq(p.eq(Factory.qualified_identifier(:t, :y), 2)) }
+        it {
+          expect(subject).to eq(p.eq(Factory.qualified_identifier(:t, :y), 2))
+        }
       end
     end
 

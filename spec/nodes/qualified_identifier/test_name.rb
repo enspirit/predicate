@@ -6,7 +6,9 @@ class Predicate
 
     subject{ expr.name }
 
-    it{ should eq(:id) }
+    it {
+      expect(subject).to eq(:id)
+    }
 
   end
 end

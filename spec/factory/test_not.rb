@@ -6,8 +6,12 @@ class Predicate
     subject{ self.not(true) }
 
     it_should_behave_like "a predicate AST node"
-    it{ should be_a(Not) }
-    it{ should eql([:not, tautology]) }
+    it {
+      expect(subject).to be_a(Not)
+    }
+    it {
+      expect(subject).to eql([:not, tautology])
+    }
 
   end
 end

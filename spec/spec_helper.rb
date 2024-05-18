@@ -26,4 +26,5 @@ end
 RSpec.configure do |c|
   c.include Helpers
   c.extend  Helpers
+  c.raise_errors_for_deprecations!
 end

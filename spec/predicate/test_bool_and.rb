@@ -7,19 +7,23 @@ class Predicate
     subject{ left & right }
 
     before do
-      subject.should be_a(Predicate)
+      expect(subject).to be_a(Predicate)
     end
 
     context 'with itself' do
       let(:right){ left }
 
-      it{ should be(left) }
+      it {
+        expect(subject).to be(left)
+      }
     end
 
     context 'with the same expression' do
       let(:right){ Predicate.coerce(x: 2) }
 
-      it{ should be(left) }
+      it {
+        expect(subject).to be(left)
+      }
     end
 
     context 'with tautology' do

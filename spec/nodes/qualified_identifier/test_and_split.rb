@@ -10,13 +10,17 @@ class Predicate
     context 'when included' do
       let(:list){ [:"t.id", :name] }
 
-      it{ should eq([predicate, tautology]) }
+      it {
+        expect(subject).to eq([predicate, tautology])
+      }
     end
 
     context 'when not include' do
       let(:list){ [:name] }
 
-      it{ should eq([tautology, predicate]) }
+      it {
+        expect(subject).to eq([tautology, predicate])
+      }
     end
 
   end

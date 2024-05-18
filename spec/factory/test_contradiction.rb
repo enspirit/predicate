@@ -6,6 +6,8 @@ class Predicate
     subject{ contradiction }
 
     it_should_behave_like "a predicate AST node"
-    it{ should be_a(Contradiction) }
+    it {
+      expect(subject).to be_a(Contradiction)
+    }
   end
 end

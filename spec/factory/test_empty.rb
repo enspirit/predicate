@@ -6,6 +6,8 @@ class Predicate
 
     it_should_behave_like "a predicate AST node"
 
-    it{ should be_a(Empty) }
+    it {
+      expect(subject).to be_a(Empty)
+    }
   end
 end

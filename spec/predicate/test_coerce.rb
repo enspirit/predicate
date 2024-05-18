@@ -7,39 +7,41 @@ class Predicate
     describe "from Predicate" do
       let(:arg){ Predicate.new(Factory.tautology) }
 
-      it{ should be(arg) }
+      it {
+        expect(subject).to be(arg)
+      }
     end
 
     describe "from true" do
       let(:arg){ true }
 
-      specify{
-        subject.expr.should be_a(Tautology)
+      specify {
+        expect(subject.expr).to be_a(Tautology)
       }
     end
 
     describe "from false" do
       let(:arg){ false }
 
-      specify{
-        subject.expr.should be_a(Contradiction)
+      specify {
+        expect(subject.expr).to be_a(Contradiction)
       }
     end
 
     describe "from Symbol" do
       let(:arg){ :status }
 
-      specify{
-        subject.expr.should be_a(Identifier)
-        subject.expr.name.should eq(arg)
+      specify {
+        expect(subject.expr).to be_a(Identifier)
+        expect(subject.expr.name).to eq(arg)
       }
     end
 
     describe "from Proc" do
       let(:arg){ lambda{ status == 10 } }
 
-      specify{
-        subject.expr.should be_a(Native)
+      specify {
+        expect(subject.expr).to be_a(Native)
       }
     end
 
@@ -47,25 +49,25 @@ class Predicate
       let(:arg){ "status == 10" }
 
       it 'raises an error' do
-        lambda{
+        expect{
           subject
-        }.should raise_error(ArgumentError)
+        }.to raise_error(ArgumentError)
       end
     end
 
     describe "from Hash (single)" do
       let(:arg){ {status: 10} }
 
-      specify{
-        subject.expr.should be_a(Eq)
-        subject.expr.should eq([:eq, [:identifier, :status], [:literal, 10]])
+      specify {
+        expect(subject.expr).to be_a(Eq)
+        expect(subject.expr).to eq([:eq, [:identifier, :status], [:literal, 10]])
       }
     end
 
     describe "from Hash (multiple)" do
       let(:arg){ {status: 10, name: "Jones"} }
 
-      specify{
+      specify {
         expect(subject).to eq(Predicate.eq(status: 10) & Predicate.eq(name: "Jones"))
       }
     end
@@ -73,7 +75,7 @@ class Predicate
     describe "from Hash (in)" do
       let(:arg){ {status: [10, 15]} }
 
-      specify{
+      specify {
         expect(subject).to eq(Predicate.in(:status, [10,15]))
       }
     end

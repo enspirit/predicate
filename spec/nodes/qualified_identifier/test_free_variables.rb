@@ -6,7 +6,9 @@ class Predicate
 
     subject{ expr.free_variables }
 
-    it{ should eq([:"t.id"]) }
+    it {
+      expect(subject).to eq([:"t.id"])
+    }
 
   end
 end

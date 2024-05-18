@@ -9,9 +9,13 @@ class Predicate
 
       it_should_behave_like "a predicate AST node"
 
-      it{ should be_a(Match) }
+      it {
+        expect(subject).to be_a(Match)
+      }
 
-      it{ should eql([:match, [:identifier, :name], [:literal, "London"]]) }
+      it {
+        expect(subject).to eql([:match, [:identifier, :name], [:literal, "London"]])
+      }
     end
 
     context 'with options' do
@@ -19,9 +23,13 @@ class Predicate
 
       it_should_behave_like "a predicate AST node"
 
-      it{ should be_a(Match) }
+      it {
+        expect(subject).to be_a(Match)
+      }
 
-      it{ should eql([:match, [:identifier, :name], [:literal, "London"], {case_sensitive: false}]) }
+      it {
+        expect(subject).to eql([:match, [:identifier, :name], [:literal, "London"], {case_sensitive: false}])
+      }
     end
 
   end

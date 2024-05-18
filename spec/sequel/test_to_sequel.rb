@@ -136,7 +136,6 @@ class Predicate
       let(:predicate) { Predicate.eq(:name, "Bob") & Predicate.eq(:price, 10.0) & Predicate.eq(:city, "London") }
 
       it 'works as expected' do
-        puts predicate.sexpr.inspect
         expect(subject).to eql("SELECT * FROM `items` WHERE ((`name` = 'Bob') AND (`price` = 10.0) AND (`city` = 'London'))")
       end
     end

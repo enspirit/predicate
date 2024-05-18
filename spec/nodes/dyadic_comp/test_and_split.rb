@@ -10,13 +10,17 @@ class Predicate
     context 'when included' do
       let(:list){ [:id, :name] }
 
-      it{ should eq([predicate, tautology]) }
+      it {
+        expect(subject).to eq([predicate, tautology])
+      }
     end
 
     context 'when not include' do
       let(:list){ [:name] }
 
-      it{ should eq([tautology, predicate]) }
+      it {
+        expect(subject).to eq([tautology, predicate])
+      }
     end
 
     context 'with attributes on both sides' do
@@ -24,20 +28,26 @@ class Predicate
 
       context 'when full at left' do
         let(:list){ [:x, :y] }
-      
-        it{ should eq([predicate, tautology]) }
+
+        it {
+          expect(subject).to eq([predicate, tautology])
+        }
       end
-      
+
       context 'none at left' do
         let(:list){ [] }
-      
-        it{ should eq([tautology, predicate]) }
+
+        it {
+          expect(subject).to eq([tautology, predicate])
+        }
       end
 
       context 'mix' do
         let(:list){ [:y] }
 
-        it{ should eq([predicate, tautology]) }
+        it {
+          expect(subject).to eq([predicate, tautology])
+        }
       end
     end
 

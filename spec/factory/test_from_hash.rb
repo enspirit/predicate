@@ -7,15 +7,21 @@ class Predicate
     context "when the hash is empty" do
       let(:h){ {} }
 
-      it{ should eq(Factory.tautology) }
+      it {
+        expect(subject).to eq(Factory.tautology)
+      }
     end
 
     context "when the hash is a singelton" do
       let(:h){ {:x => 12} }
 
       it_should_behave_like "a predicate AST node"
-      it{ should be_a(Eq) }
-      it{ should eq([:eq, [:identifier, :x], [:literal, 12]]) }
+      it {
+        expect(subject).to be_a(Eq)
+      }
+      it {
+        expect(subject).to eq([:eq, [:identifier, :x], [:literal, 12]])
+      }
     end
 
     context "when the hash is not a singleton" do
@@ -27,8 +33,12 @@ class Predicate
       }
 
       it_should_behave_like "a predicate AST node"
-      it{ should be_a(And) }
-      it{ should eq(expected) }
+      it {
+        expect(subject).to be_a(And)
+      }
+      it {
+        expect(subject).to eq(expected)
+      }
     end
 
     context "when the hash has array values" do
@@ -40,8 +50,12 @@ class Predicate
       }
 
       it_should_behave_like "a predicate AST node"
-      it{ should be_a(And) }
-      it{ should eq(expected) }
+      it {
+        expect(subject).to be_a(And)
+      }
+      it {
+        expect(subject).to eq(expected)
+      }
     end
 
   end

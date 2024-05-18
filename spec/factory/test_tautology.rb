@@ -6,7 +6,9 @@ class Predicate
     subject{ tautology }
 
     it_should_behave_like "a predicate AST node"
-    it{ should be_a(Tautology) }
+    it {
+      expect(subject).to be_a(Tautology)
+    }
 
   end
 end

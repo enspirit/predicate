@@ -7,7 +7,9 @@ class Predicate
     describe "on a comp(:eq)" do
       let(:p){ Predicate.coerce(:x => 2) }
 
-      it{ should eq([:x]) }
+      it {
+        expect(subject).to eq([:x])
+      }
     end
 
   end
