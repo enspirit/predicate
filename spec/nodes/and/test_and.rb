@@ -30,5 +30,15 @@ class Predicate
       end
     end
 
+    context 'with an eq yielding a contradiction' do
+      let(:right) {
+        Factory.eq(:x, 5)
+      }
+
+      it 'returns a contradiction' do
+        expect(subject).to be_a(Contradiction)
+      end
+    end
+
   end
 end
