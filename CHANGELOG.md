@@ -1,4 +1,4 @@
-# 2.9.0
+# 2.9.0 - 2025-04-03
 
 * Add Predicate#to_hashes that returns a pair of positive and
   negative hashes. Generalization of to_hash where neq are used.
