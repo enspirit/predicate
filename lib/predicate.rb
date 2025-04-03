@@ -165,10 +165,24 @@ class Predicate
   end
 
   # If possible, converts this predicate back to a `{ attr: value, ... }`
-  # hash. Raises an IllegalArgumentError if the predicate cannot be
-  # represented that way.
+  # hash.
+  #
+  # Raises an ArgumentError if the predicate cannot be represented that way.
   def to_hash
     expr.to_hash
+  end
+
+  # If possible, converts this predicate back to two `{ attr: value, ... }`
+  # hashes, where the first one is positive (e.g. x IN ...) and the second one
+  # is negative (e.g. x NOT IN ...)
+  #
+  # The result is such that the original predicate is equivalent to a AND
+  # of the two hashes, where the first includes all its values and the second
+  # excludes all its values.
+  #
+  # Raises an ArgumentError if the predicate cannot be represented that way.
+  def to_hashes
+    expr.to_hashes
   end
 
 end # class Predicate

@@ -37,5 +37,9 @@ class Predicate
       {}
     end
 
+    def to_hashes
+      [{}, {}]
+    end
+
   end
 end

@@ -1,3 +1,8 @@
+# 2.9.0
+
+* Add Predicate#to_hashes that returns a pair of positive and
+  negative hashes. Generalization of to_hash where neq are used.
+
 # 2.8.0 - 2023-06-09
 
 * BREAKING: removed support for ruby < 2.7 and upgraded sexpr

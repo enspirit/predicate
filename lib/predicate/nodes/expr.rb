@@ -103,6 +103,10 @@ class Predicate
       raise ArgumentError, "Unable to represent #{self} to a Hash"
     end
 
+    def to_hashes
+      raise ArgumentError, "Unable to represent #{self} to two Hashes"
+    end
+
     def sexpr(arg)
       Factory.sexpr(arg)
     end

@@ -49,7 +49,7 @@ describe "README" do
         { name: "Candy", price: 6 },
         { name: "Crush", price: 4 }
       ]
-    })).to eql(true)    
+    })).to eql(true)
   end
 
   it 'has a correct sixth example' do

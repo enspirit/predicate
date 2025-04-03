@@ -10,5 +10,11 @@ class Predicate
       value.empty?
     end
 
+    def assert!(tuple, asserter = Asserter.new)
+      value = operand.evaluate(tuple)
+      asserter.assert_empty(value)
+      value
+    end
+
   end
 end

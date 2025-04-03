@@ -53,13 +53,31 @@ class Predicate
       sexpr_body.all?{|operand| operand.evaluate(tuple) }
     end
 
+    def assert!(tuple, asserter = Asserter.new)
+      sexpr_body.all?{|operand| operand.assert!(tuple, asserter) }
+    end
+
     def to_hash
       sexpr_body.inject({}) do |p,term|
-        p.merge(term.to_hash){|k,v1,v2|
-          super unless v1 == v2
-          v1
-        }
+        _hash_merge(p, term.to_hash)
       end
+    end
+
+    def to_hashes
+      sexpr_body.inject([{},{}]) do |(pos,neg),term|
+        t_pos, t_neg = term.to_hashes
+        [
+          _hash_merge(pos, t_pos),
+          _hash_merge(neg, t_neg)
+        ]
+      end
+    end
+
+    def _hash_merge(h1, h2)
+      h1.merge(h2){|k,v1,v2|
+        raise ArgumentError, "Unable to represent #{self} to a Hash" unless v1 == v2
+        v1
+      }
     end
 
   end

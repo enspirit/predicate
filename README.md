@@ -16,6 +16,9 @@ p.evaluate(:x => 2, :y => 6)
 
 p.evaluate(:x => 2, :y => 3)
 # => false
+
+p.assert!(:x => 2, :y => 3)
+# => Minitest::Assertion("Expected false to be truthy")
 ```
 
 When building complex expressions, you can use the `dsl` method.
@@ -224,6 +227,20 @@ p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
 
 p.evaluate(:x => 2, :y => 6)
 # => true
+```
+
+### Assert
+
+`Predicate#assert!` takes a takes a Hash mapping each free variable to a value,
+and raises a Minitest::AssertionError if the predicate evaluates to false.
+A best effort is made to provide readable error messages on the assertion error.
+
+```ruby
+# Let's build a simple predicate for 'x = 2 and not(y <= 3)'
+p = Predicate.eq(:x, 2) & !Predicate.lte(:y, 3)
+
+p.evaluate(:x => 2, :y => 8)
+# => Expected false to be truthy (Minitest::Assertion)
 ```
 
 ### Rename

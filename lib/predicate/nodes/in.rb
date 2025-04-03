@@ -67,6 +67,14 @@ class Predicate
       values.include?(identifier.evaluate(tuple))
     end
 
+    def assert!(tuple, asserter = Asserter.new)
+      values = right.evaluate(tuple)
+      raise UnboundError if values.is_a?(Placeholder)
+      value = identifier.evaluate(tuple)
+      asserter.assert_includes(values, value)
+      value
+    end
+
     def var_against_literal_value?
       left.identifier? && right.literal? && !right.has_placeholder?
     end
@@ -74,6 +82,10 @@ class Predicate
     def to_hash
       return super unless var_against_literal_value?
       { identifier.name => right.value }
+    end
+
+    def to_hashes
+      [ to_hash, {} ]
     end
 
   end
