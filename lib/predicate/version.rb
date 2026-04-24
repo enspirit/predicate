@@ -1,7 +1,7 @@
 class Predicate
   module Version
     MAJOR = 2
-    MINOR = 9
+    MINOR = 10
     TINY  = 0
   end
   VERSION = "#{Version::MAJOR}.#{Version::MINOR}.#{Version::TINY}"
