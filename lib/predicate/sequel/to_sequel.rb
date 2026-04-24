@@ -110,11 +110,16 @@ class Predicate
         raise Error, "Unable to compile #{sexpr} to Sequel"
       end
 
+      def on_native(sexpr)
+        return sexpr.last.sql_literal if sexpr.last.respond_to?(:sql_literal)
+        return sexpr.last.sql if sexpr.last.respond_to?(:sql)
+        on_unsupported(sexpr)
+      end
+
       def on_unsupported(sexpr)
         raise NotSupportedError, "Unsupported predicate #{sexpr}"
       end
       alias :on_var :on_unsupported
-      alias :on_native :on_unsupported
       alias :on_intersect :on_unsupported
       alias :on_subset :on_unsupported
       alias :on_superset :on_unsupported
