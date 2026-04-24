@@ -1,3 +1,8 @@
+# 2.10.0
+
+* Add support for compiling `Predicate.native` to Sequel, if the
+  operand respond to :sql or :sql_literal
+
 # 2.9.0 - 2025-04-03
 
 * Add Predicate#to_hashes that returns a pair of positive and

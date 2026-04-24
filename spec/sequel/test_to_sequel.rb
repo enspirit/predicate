@@ -101,21 +101,6 @@ class Predicate
       end
     end
 
-    context 'in with something responding to sql_literal' do
-      let(:operand){
-        Object.new.tap{|o|
-          def o.sql_literal(db)
-            "Hello World"
-          end
-        }
-      }
-      let(:predicate) { Predicate.in(:price, Predicate.opaque(operand)) }
-
-      it 'works as expected' do
-        expect(subject).to eql("SELECT * FROM `items` WHERE (`price` IN (Hello World))")
-      end
-    end
-
     context 'not' do
       let(:predicate) { !Predicate.in(:price, [10.0, 17.99]) }
 
@@ -220,5 +205,43 @@ class Predicate
         expect { subject }.to raise_error(NotSupportedError)
       end
     end
+
+    class SqlAble
+      def initialize(value)
+        @value = value
+      end
+
+      def sql(*args, &bl)
+        @value
+      end
+      alias :sql_literal :sql
+    end
+
+    context 'opaque in an IN' do
+      let(:operand) {
+        SqlAble.new('Hello World')
+      }
+      let(:predicate) {
+        Predicate.in(:price, Predicate.opaque(operand))
+      }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE (`price` IN (Hello World))")
+      end
+    end
+
+    context 'native' do
+      let(:operand) {
+        SqlAble.new(Sequel.lit("1=1"))
+      }
+      let(:predicate) {
+        Predicate.native(operand)
+      }
+
+      it 'works as expected' do
+        expect(subject).to eql("SELECT * FROM `items` WHERE (1=1)")
+      end
+    end
+
   end
 end
