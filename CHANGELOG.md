@@ -1,4 +1,4 @@
-## 2.11.0
+## 2.11.0 - 2026-07-09
 
 * Add support for Or#to_hash in simple cases such a x=3 | x=4, yielding
   { x: [3, 4] }
