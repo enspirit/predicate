@@ -48,6 +48,12 @@ class Predicate
       it{ expect(subject).to eql([{y: [2,3]},{x: 3}]) }
     end
 
+    context "or of eqs on the same attribute" do
+      let(:predicate){ Predicate.eq(:x, 2) | Predicate.eq(:x, 3) }
+
+      it{ expect(subject).to eql([{x: [2,3]},{}]) }
+    end
+
     context "not nil & eq" do
       let(:predicate){ Predicate.neq(:x, nil) & Predicate.eq(:x, [2,3]) }
 

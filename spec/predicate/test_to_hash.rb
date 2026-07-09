@@ -36,5 +36,23 @@ class Predicate
       it{ expect(subject).to eql(x: 3, y: [2,3]) }
     end
 
+    context "or of eqs on the same attribute" do
+      let(:predicate){ Predicate.eq(:x, 2) | Predicate.eq(:x, 3) }
+
+      it{ expect(subject).to eql(x: [2,3]) }
+    end
+
+    context "or mixing eq and in on the same attribute" do
+      let(:predicate){ Predicate.eq(:x, 2) | Predicate.in(:x, [3,4]) }
+
+      it{ expect(subject).to eql(x: [2,3,4]) }
+    end
+
+    context "or on distinct attributes" do
+      let(:predicate){ Predicate.eq(:x, 2) | Predicate.eq(:y, 3) }
+
+      it{ expect{ subject }.to raise_error(ArgumentError) }
+    end
+
   end
 end

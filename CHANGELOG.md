@@ -1,3 +1,8 @@
+## 2.11.0
+
+* Add support for Or#to_hash in simple cases such a x=3 | x=4, yielding
+  { x: [3, 4] }
+
 ## 2.10.0 - 2026-04-24
 
 * Add support for compiling `Predicate.native` to Sequel, if the
