@@ -1,4 +1,4 @@
-## Unreleased
+## 2.12.0 - 2026-09-30
 
 * BREAKING: removed support for ruby < 3.1, which is now enforced by
   the gemspec's `required_ruby_version`
