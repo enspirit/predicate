@@ -1,3 +1,15 @@
+## Unreleased
+
+* BREAKING: removed support for ruby < 3.1, which is now enforced by
+  the gemspec's `required_ruby_version`
+* The test matrix now covers ruby 3.1, 3.2, 3.3, 3.4 and 4.0
+* Upgraded development dependencies (sequel 5.108, sqlite3 2.9, pg 1.6,
+  rspec 3.13, rake 13.2) and github actions (checkout v7, slack v2)
+* `ostruct` is now an explicit development dependency, since it is no
+  longer a default gem on ruby 4.0
+* `minitest` is now constrained to `< 7.0`, the runtime dependency being
+  used to mix `Minitest::Assertions` into `Predicate::Asserter`
+
 ## 2.11.0 - 2026-07-09
 
 * Add support for Or#to_hash in simple cases such a x=3 | x=4, yielding
